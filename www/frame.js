@@ -89,16 +89,6 @@ export function calculatePrice(printSize, frameStyle, frameWidth, matWidth) {
     return (Math.round((price + Number.EPSILON) * 100) / 100);
 }
 
-export function onPageLoad() {
-    const parts = window.location.href.split("?objectID=");
-    if (parts.length > 1) {
-        determineArtwork(parts[1]);
-        connectSliderTextfield();
-    } else {
-        window.location.href = "search.html";
-    }
-}
-
 /**
  * Use a query parameter objectID to determine which artwork 
  * is being configured on the page. If the requested picture 
@@ -191,4 +181,20 @@ export function connectSliderTextfield() {
     }
 
 }
-	
+
+export function determinePrefSet(objectID) {
+    for (let item of localStorage["cart"]) {
+        console.debug(item.objectID);
+    }
+}
+    
+
+export function onPageLoad() {
+    connectSliderTextfield();
+    const parts = window.location.href.split("?objectID=");
+    if (parts.length > 1) {
+        determineArtwork(parts[1]);
+    } else {
+        window.location.href = "search.html";
+    }
+}
