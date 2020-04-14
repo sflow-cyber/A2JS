@@ -183,7 +183,7 @@ export function connectSliderTextfield() {
 }
 
 export function determinePrefSet(objectID) {
-    for (let item of localStorage["cart"]) {
+    for (let item in localStorage["cart"]) {
         console.debug(item.objectID);
     }
 }

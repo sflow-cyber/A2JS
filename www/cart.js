@@ -62,3 +62,13 @@ export function getItems() {
   const items = JSON.parse(localStorage["cart"]);
   return items;
 }
+
+/**
+ * Get an item with specific objectID from the cart as object
+ * 
+ * @returns an object from the shopping cart or null
+ */
+export function getItem(objectID) {
+  const item = JSON.parse(localStorage["cart"])
+  return item;
+}
