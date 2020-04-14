@@ -93,6 +93,7 @@ export function onPageLoad() {
     const parts = window.location.href.split("?objectID=");
     if (parts.length > 1) {
         determineArtwork(parts[1]);
+        connectSliderTextfield();
     } else {
         window.location.href = "search.html";
     }
