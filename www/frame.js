@@ -1,6 +1,20 @@
 import { CartItem } from './cart-item.js';
 import * as Cart from './cart.js';
 
+// ToDo: re-render object if any of the radio buttons is changed
+export var frameRenderObj = {
+    img:document.getElementById("preview-image"), 
+    container:document.getElementById("preview-container"), 
+    printSize:'M', 
+    frameStyle:"natural", 
+    frameWidth:4.0, 
+    matColor:"mint", 
+    matWidth:5.5
+};
+
+export function renderObject() {
+    render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
+}
 
 /**
  * Calculates the possible print sizes for an image.
@@ -138,10 +152,14 @@ export function connectSliderTextfield() {
 
     frameWidthSlid.oninput = function() {
         frameWidthTF.value = this.value;
+        frameRenderObj.frameWidth = this.value;
+        renderObject();
     }
 
     matSlid.oninput = function() {
         matTF.value = this.value;
+        frameRenderObj.matWidth = this.value;
+        renderObject();
     }
 
     frameWidthTF.oninput = function() {
@@ -152,6 +170,8 @@ export function connectSliderTextfield() {
         tfVal = Math.max(2, tfVal);
         frameWidthSlid.value = tfVal;
         this.value = tfVal;
+        frameRenderObj.frameWidth = tfVal;
+        renderObject();
     }
 
     matTF.oninput = function() {
@@ -162,6 +182,8 @@ export function connectSliderTextfield() {
         tfVal = Math.max(0, tfVal);
         matSlid.value = tfVal;
         this.value = tfVal;
+        frameRenderObj.matWidth = tfVal;
+        renderObject();
     }
 
     frameWidthTF.onkeypress = function(e) {
@@ -171,6 +193,8 @@ export function connectSliderTextfield() {
             if (this.value.length == 0) {
                 this.value = frameWidthSlid.value;
             }
+            frameRenderObj.frameWidth = this.value;
+            renderObject();
         }
     } 
 
@@ -181,13 +205,14 @@ export function connectSliderTextfield() {
             if (this.value.length == 0) {
                 this.value = matSlid.value;
             }
+            frameRenderObj.matWidth = this.value;
+            renderObject();
         }
     }
-
 }
 
 export function determinePrefSet(objectID) {
-    let item = Cart.getItem(objectID);
+    const item = Cart.getItem(objectID);
     let printSize = 'M';
     let frameStyle = "natural";
     let matColor = "mint";
