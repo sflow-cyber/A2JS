@@ -1,3 +1,7 @@
+import { CartItem } from './cart-item.js';
+import * as Cart from './cart.js';
+
+
 /**
  * Calculates the possible print sizes for an image.
  *
@@ -183,9 +187,79 @@ export function connectSliderTextfield() {
 }
 
 export function determinePrefSet(objectID) {
-    for (let item in localStorage["cart"]) {
-        console.debug(item.objectID);
+    let item = Cart.getItem(objectID);
+    let printSize = 'M';
+    let frameStyle = "natural";
+    let matColor = "mint";
+    let frameWidth = 4.0;
+    let matWidth = 5.5;
+    if (item != null) {
+        if (item.printSize == 'S') {    // ToDo: JSON Bezeichnungen festlegen!
+            document.getElementById("print-size-s").checked = true;
+            printSize = 'S';
+        } else if (item.printSize == 'M') {
+            document.getElementById("print-size-m").checked = true;
+        } else if (item.printSize == 'L') {
+            document.getElementById("print-size-l").checked = true;
+            printSize = 'L';
+        } else {
+            document.getElementById("print-size-m").checked = true;
+        }
+        if (item.frameStyle == "classic") {     // ToDo: JSON Bezeichnungen festlegen!
+            document.getElementById("frame-style-classic").checked = true;
+            frameStyle = "classic";
+        } else if (item.frameStyle == "natural") {
+            document.getElementById("frame-style-natural").checked = true;
+        } else if (item.frameStyle == "shabby") {
+            document.getElementById("frame-style-shabby").checked = true;
+            frameStyle = "shabby";
+        } else if (item.frameStyle == "elegant") {
+            document.getElementById("frame-style-elegant").checked = true;
+            frameStyle = "elegant";
+        } else {
+            document.getElementById("frame-style-natural").checked = true;
+        }
+        if (item.matColor == "ivory") {     // ToDo: JSON Bezeichnungen festlegen!
+            document.getElementById("mat-color-ivory").checked = true;
+            matColor = "ivory";
+        } else if (item.matColor == "mint") {
+            document.getElementById("mat-color-mint").checked = true;
+        } else if (item.matColor == "wine") {
+            document.getElementById("mat-color-wine").checked = true;
+            matColor = "wine";
+        } else if (item.matColor == "indigo") {
+            document.getElementById("mat-color-indigo").checked = true;
+            matColor = "indigo";
+        } else if (item.matColor == "coal") {
+            document.getElementById("mat-color-coal").checked = true;
+            matColor = "coal";
+        } else {
+            document.getElementById("mat-color-mint").checked = true;
+        }
+        const frameWidthTF = document.getElementById("frameWidth");
+        const frameWidthSlid = document.getElementById("frameWidthR");
+        const matTF = document.getElementById("matWidth");
+        const matSlid = document.getElementById("matWidthR");
+        frameWidthTF.value = 4.0;
+        frameWidthSlid.value = 4.0;
+        matTF.value = 5.5;
+        matSlid.value = 5.5;
+        if (item.frameWidth != null) {
+            if (item.frameWidth >= 2 && item.frameWidth <= 5) {
+               frameWidthSlid = item.frameWidth;
+               frameWidthTF = item.frameWidth;    
+            }
+        }
+        if (item.matWidth != null) {
+            if (item.matWidth >= 0 && item.matWidth <= 10) {
+                matSlid = item.matWidth;
+                matTF = item.matWidth;
+            }
+        }
     }
+    const img = document.getElementById("preview-image");
+    const container = document.getElementById("preview-container");
+    render(img, container, printSize, frameStyle, frameWidth, matColor, matWidth);
 }
     
 
