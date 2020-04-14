@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Cart | Artmart</title>
+  <script type="module">
+
+    import { CartItem } from './cart-item.js';
+    import * as Cart from './cart.js';
+
+    document.addEventListener('DOMContentLoaded', event => {
+      updateLocalStorage();
+    });
+
+    const deleteButton = document.querySelector('.cart-item .museum-label .cart-remove');
+    deleteButton.addEventListener('click', event => {
+      //Cart.add(new CartItem(1,1,1,1,1,1));
+      //Cart.getItems();
+      Cart.remove(0);
+      updateLocalStorage();
+    })
+
+    const checkoutButton = document.getElementById('checkout-button');
+    checkoutButton.addEventListener('click', event => {
+      window.location.href = "./checkout.html";
+    })
+
+    function updateLocalStorage() {
+      const cart = document.getElementById('cart-link');
+      cart.innerText = "Cart" + Cart.getAmountAsString();
+
+      if (Cart.getAmount() == 0) {
+        document.querySelector('#cart div').innerText = "There are no items in your shopping cart.";
+        document.getElementById('checkout-button').disabled = true;
+      }
+    }
+
+  </script>
+</head>
+
+<body>
+  <header>
+    <a href="search.html">
+      <img src="artmart_logo.png" alt="Artmart" class="logo">
+    </a>
+    <nav>
+      <a href="search.html">Search</a>
+      <a href="cart.html" id="cart-link">Cart</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="cart" id="cart">
+
+      <!-- TODO: dynamically add cart items using template below -->
+      <div class="cart-item">
+        <div class="cart-preview" id="preview-container-0">
+          <a href="">
+            <img class="cart-thumb" src="" id="preview-0" alt="">
+          </a>
+        </div>
+        <div class="museum-label">
+          <div>
+            <span class="artist"></span>
+            <span class="title"></span>,
+            <span class="date"></span>
+            <br><br>
+            <span class="frame-description"></span>
+          </div>
+          <div class="cart-price">€ <span id="price-0">0</span></div>
+          <button type="button" class="cart-remove"></button>
+        </div>
+      </div>
+
+      <div class="cart-total">
+        <div class="price">Total: € <span id="price-total">0</span></div>
+        <button type="button" id="checkout-button">Checkout</button>
+      </div>
+    </section>
+  </main>
+
+</body>
+
+</html>

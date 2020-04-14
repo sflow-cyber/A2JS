@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <!--<script type="text/javascript" src="./cart-item.js"></script>
+  <script type="text/javascript" src="./cart.js"></script>
+  <script type="text/javascript" src="./frame.js"></script> -->
+  <title>Config | Artmart</title>
+  <script type="module">
+
+    import { CartItem } from './cart-item.js';
+    import * as Cart from './cart.js';
+    import * as Frame from './frame.js';
+
+    document.addEventListener('DOMContentLoaded', event => {
+      updateLocalStorage();
+    });
+
+    function updateLocalStorage() {
+      const cart = document.getElementById('cart-link');
+      cart.innerText = "Cart" + Cart.getAmountAsString();
+    }
+
+    Frame.onPageLoad();
+
+  </script>
+</head>
+
+<body>
+
+  <header>
+    <a href="search.html" title="Homepage">
+      <img src="artmart_logo.png" alt="Artmart" class="logo">
+    </a>
+    <nav>
+      <a href="search.html">Search</a>
+      <a href="cart.html" id="cart-link">Cart</a>
+    </nav>
+  </header>
+
+  <main class="config-main">
+
+    <section class="configurator">
+
+      <div class="preview" id="preview-container">
+        <img src="null" alt="" id="preview-image">
+        <div class="museum-label" id="image-label"></div>
+      </div>
+
+      <form class="museum-label" id="config-form">
+
+        <input type="hidden" name="object-id" id="object-id">
+
+        <fieldset>
+          <legend>Print Size</legend>
+          <div class="segmented">
+            <input type="radio" name="printSize" id="print-size-s" value="S">
+            <label for="print-size-s" id="print-size-s-label">Small<br>0 × 0 cm</label>
+            <input type="radio" name="printSize" id="print-size-m" value="M" checked>
+            <label for="print-size-m" id="print-size-m-label">Medium<br>0 × 0 cm</label>
+            <input type="radio" name="printSize" id="print-size-l" value="L">
+            <label for="print-size-l" id="print-size-l-label">Large<br>0 × 0 cm</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Frame Width</legend>
+          <div class="config-row">
+            <label>Frame</label>
+            <div>
+              <input type="number" name="frameWidth" id="frameWidth" min="2" max="5" value="4" step="0.1" aria-label="Frame Width">
+              cm
+            </div>
+          </div>
+          <input type="range" name="frameWidthR" id="frameWidthR" min="2" max="5" value="4" step="0.1" aria-hidden="true">
+        </fieldset>
+
+        <fieldset>
+          <legend>Frame Style</legend>
+          <div class="frame-style-row">
+            <div class="frame-style-item">
+              <input type="radio" id="frame-style-classic" name="frameStyle" value="classic">
+              <label for="frame-style-classic" id="frame-style-classic-label"><img src="frame-styles/classic-thumb.png" alt="Classic">Classic</label>
+            </div>
+            <div class="frame-style-item">
+              <input type="radio" id="frame-style-natural" name="frameStyle" value="natural" checked>
+              <label for="frame-style-natural" id="frame-style-natural-label"><img src="frame-styles/natural-thumb.png" alt="Natural">Natural</label>
+            </div>
+            <div class="frame-style-item">
+              <input type="radio" id="frame-style-shabby" name="frameStyle" value="shabby">
+              <label for="frame-style-shabby" id="frame-style-shabby-label"><img src="frame-styles/shabby-thumb.png" alt="Shabby">Shabby</label>
+            </div>
+            <div class="frame-style-item">
+              <input type="radio" id="frame-style-elegant" name="frameStyle" value="elegant">
+              <label for="frame-style-elegant" id="frame-style-elegant-label"><img src="frame-styles/elegant-thumb.png" alt="Elegant">Elegant</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Mat Width</legend>
+          <div class="config-row">
+            <label>Mat</label>
+            <div>
+              <input type="number" name="matWidth" id="matWidth" min="0" max="10" value="5.5" step="0.1" aria-label="Mat Width">
+              cm
+            </div>
+          </div>
+          <input type="range" name="matWidthR" id="matWidthR" min="0" max="10" value="5.5" step="0.1" aria-hidden="true">
+        </fieldset>
+
+        <fieldset>
+          <legend>Mat Color</legend>
+          <div class="mat-color-row">
+            <div class="mat-color-item">
+              <input type="radio" id="mat-color-ivory" name="matColor" value="ivory">
+              <label for="mat-color-ivory" id="mat-color-ivory-label">Ivory</label>
+            </div>
+            <div class="mat-color-item">
+              <input type="radio" id="mat-color-mint" name="matColor" value="mint" checked>
+              <label for="mat-color-mint" id="mat-color-mint-label">Mint</label>
+            </div>
+            <div class="mat-color-item">
+              <input type="radio" id="mat-color-wine" name="matColor" value="wine">
+              <label for="mat-color-wine" id="mat-color-wine-label">Wine</label>
+            </div>
+            <div class="mat-color-item">
+              <input type="radio" id="mat-color-indigo" name="matColor" value="indigo">
+              <label for="mat-color-indigo" id="mat-color-indigo-label">Indigo</label>
+            </div>
+            <div class="mat-color-item">
+              <input type="radio" id="mat-color-coal" name="matColor" value="coal">
+              <label for="mat-color-coal" id="mat-color-coal-label">Coal</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Price</legend>
+          <div class="config-row">
+            <label for="price">Price (excl. shipping)</label>
+            <div>
+              <span class="price" id="price">€ 0</span>
+            </div>
+          </div>
+          <div class="config-row">
+            <label for="total-size">Total Size (incl. frame and mat)</label>
+            <div id="total-size">0 × 0 cm</div>
+          </div>
+          <button type="submit" class="buy">Add to Cart</button>
+        </fieldset>
+      </form>
+    </section>
+  </main>
+
+</body>
+
+</html>

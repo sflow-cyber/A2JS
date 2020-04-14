@@ -1,0 +1,41 @@
+name: Tests
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v1.1.0
+      with:
+        version: 13.x
+    
+    - name: Cache dependencies
+      uses: actions/cache@v1
+      with:
+        path: test/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    
+    - name: Install dependencies
+      run: npm install
+      working-directory: test
+    
+    - name: Run tests
+      run: npm test
+      working-directory: test
+      continue-on-error: true
+        
+    - name: Upload report
+      uses: actions/upload-artifact@v1
+      with:
+        name: Report
+        path: test/report.html

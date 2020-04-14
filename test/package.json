@@ -1,0 +1,42 @@
+{
+  "scripts": {
+    "test": "jest",
+    "server": "node node_modules/static-server/bin/static-server.js -p 3333 ../www"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.9.0",
+    "babel-jest": "^25.2.4",
+    "chance": "^1.1.4",
+    "expect-puppeteer": "^4.4.0",
+    "express": "^4.17.1",
+    "html-validate": "^2.19.0",
+    "jest": "^25.2.4",
+    "jest-puppeteer": "^4.4.0",
+    "mustache": "^4.0.0",
+    "puppeteer": "^2.1.1",
+    "static-server": "^2.2.1",
+    "strip-ansi": "^6.0.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.m?js$": "babel-jest"
+    },
+    "setupFilesAfterEnv": [
+      "expect-puppeteer"
+    ],
+    "preset": "jest-puppeteer",
+    "reporters": [
+      "default",
+      [
+        "./jest-tuwien/reporter.js",
+        {
+          "title": "A2",
+          "maxPoints": 25
+        }
+      ]
+    ],
+    "globals": {
+      "__SEED__": 1234567890
+    }
+  }
+}
