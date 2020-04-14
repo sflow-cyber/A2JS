@@ -69,6 +69,11 @@ export function getItems() {
  * @returns an object from the shopping cart or null
  */
 export function getItem(objectID) {
-  const item = JSON.parse(localStorage["cart"])
-  return item;
+  const items = JSON.parse(localStorage["cart"]);
+  for (let item of items) {
+    if (item.objectID == objectID) {
+      return item;
+    }
+  }
+  return null;
 }
