@@ -194,6 +194,7 @@ export function onPageLoad() {
     const parts = window.location.href.split("?objectID=");
     if (parts.length > 1) {
         determineArtwork(parts[1]);
+        determinePrefSet(parts[1]);
     } else {
         window.location.href = "search.html";
     }
