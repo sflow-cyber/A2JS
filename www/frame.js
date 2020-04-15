@@ -124,9 +124,7 @@ export async function determineArtwork() {
         const response = await fetch(artWorkUrl, {method: 'GET'});
         const artworks = await response.json();
         if (artworks.primaryImage.length == 0) {
-            // redirect to search page
-            // window.location.href = "search.html";
-            console.log("redir to search page");
+            window.location.href = "search.html";
         }
         const img = document.getElementById("preview-image");
         img.style.visibility = "hidden";
@@ -134,8 +132,7 @@ export async function determineArtwork() {
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
     } catch(e) {
-        // window.location.href = "search.html";
-        console.log("redir to search page");
+        window.location.href = "search.html";
     }
 }
 
@@ -255,7 +252,6 @@ export function determinePrefSet() {
         frameWidthSlid.value = frameRenderObject.cartItem.frameWidth / 10;
         matTF.value = frameRenderObject.cartItem.matWidth / 10;
         matSlid.value = frameRenderObject.cartItem.matWidth / 10;
-    
 } 
     
 export function createEventListenersForRadioButtonGroups() {
@@ -314,8 +310,7 @@ export function updateFROjbect(str) {
         frameRenderObj.cartItem.objectID = str.substring(i + what.length, j);
         console.log("objectID: " + frameRenderObj.cartItem.objectID);
     } else {
-        // window.location.href = "search.html";
-        console.log("redir to search page");
+        window.location.href = "search.html";
     }
     what = "printSize=";
     i = str.indexOf(what);
@@ -386,10 +381,9 @@ export function onPageLoad() {
     updateFROjbect(parts[1]);
     if (parts.length > 1) {
         determineArtwork();
-        // determinePrefSet();
+        determinePrefSet();
         renderObject();
     } else {
-        // window.location.href = "search.html";
-        console.log("redir to search page");
+        window.location.href = "search.html";
     }
 }
