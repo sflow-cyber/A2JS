@@ -90,11 +90,7 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 }
 
 export function renderObject() {
-    const imgRef = document.getElementById("preview-image");
-    // imgRef.style.display = "none";
-    imgRef.src = frameRenderObj.imgSource;
     render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
-    // imgRef.style.display = "initial";   
 }
 
 /**
@@ -128,7 +124,7 @@ export async function determineArtwork(objectID) {
             // redirect to search page
             window.location.href = "search.html";
         }
-        frameRenderObj.imgSource = artworks.primaryImageSmall;
+        document.getElementById("preview-image").src = artworks.primaryImageSmall;
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
     } catch(e) {
