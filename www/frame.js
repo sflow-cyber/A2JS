@@ -124,8 +124,6 @@ export async function determineArtwork(objectID) {
             window.location.href = "search.html";
         }
         const img = document.getElementById("preview-image");
-        // img.style.display = "none";
-        img.style.visibility = "hidden";
         img.src = artworks.primaryImageSmall;
         console.log(artworks.artistDisplayName);
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
@@ -336,28 +334,29 @@ export function createEventListenersForRadioButtonGroups() {
 
 
 export function onPageLoad() {
-    // const img = document.querySelector('#preview-image');
-    // img.style.display = "none";
+    const img = document.querySelector('#preview-image');
+    img.style.visibility = "hidden";
+
+    function loaded() {
+        renderObject();
+    }
+    if (img.complete) {
+        console.log("img complete");
+        loaded();
+    } else {
+        img.addEventListener('load', loaded);
+        img.addEventListener('error', function() {
+            window.location.href="search.html";
+        });
+    } 
+
     connectSliderTextfield();
     createEventListenersForRadioButtonGroups();
     const parts = window.location.href.split("?objectID=");
     if (parts.length > 1) {
         determineArtwork(parts[1]);
         determinePrefSet(parts[1], false);
-        // function loaded() {
-            // img.style.display = "inline-block";
-        renderObject();
-        // }
-    /*
-        if (img.complete) {
-            console.log("img complete");
-            loaded();
-        } else {
-            img.addEventListener('load', loaded);
-            img.addEventListener('error', function() {
-                window.location.href="search.html";
-            });
-        } */
+       
     } else {
         window.location.href = "search.html";
     }
