@@ -90,6 +90,7 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 
 export function renderObject() {
     render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
+    document.getElementById("preview-image").style.display = "initial";
 }
 
 /**
@@ -123,7 +124,9 @@ export async function determineArtwork(objectID) {
             // redirect to search page
             window.location.href = "search.html";
         }
-        document.getElementById("preview-image").src = artworks.primaryImageSmall;
+        const imgRef = document.getElementById("preview-image");
+        imgRef.style.display = "none";
+        imgRef.src = artworks.primaryImageSmall;
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
     } catch(e) {
@@ -144,7 +147,7 @@ export async function determineArtwork(objectID) {
  * 
  */
 
-export function connectSliderTextfield(shouldRender) {
+export function connectSliderTextfield() {
     const frameWidthTF = document.getElementById("frameWidth");
     const frameWidthSlid = document.getElementById("frameWidthR");
     const matTF = document.getElementById("matWidth");
@@ -153,13 +156,13 @@ export function connectSliderTextfield(shouldRender) {
     frameWidthSlid.oninput = function() {
         frameWidthTF.value = this.value;
         frameRenderObj.frameWidth = this.value;
-        if (shouldRender) renderObject();
+        renderObject();
     }
 
     matSlid.oninput = function() {
         matTF.value = this.value;
         frameRenderObj.matWidth = this.value;
-        if (shouldRender) renderObject();
+        renderObject();
     }
 
     frameWidthTF.oninput = function() {
@@ -171,7 +174,7 @@ export function connectSliderTextfield(shouldRender) {
         frameWidthSlid.value = tfVal;
         this.value = tfVal;
         frameRenderObj.frameWidth = tfVal;
-        if (shouldRender) renderObject();
+        renderObject();
     }
 
     matTF.oninput = function() {
@@ -183,7 +186,7 @@ export function connectSliderTextfield(shouldRender) {
         matSlid.value = tfVal;
         this.value = tfVal;
         frameRenderObj.matWidth = tfVal;
-        if (shouldRender) renderObject();
+        renderObject();
     }
 
     frameWidthTF.onkeypress = function(e) {
@@ -194,7 +197,7 @@ export function connectSliderTextfield(shouldRender) {
                 this.value = frameWidthSlid.value;
             }
             frameRenderObj.frameWidth = this.value;
-            if (shouldRender) renderObject();
+            renderObject();
         }
     } 
 
@@ -206,7 +209,7 @@ export function connectSliderTextfield(shouldRender) {
                 this.value = matSlid.value;
             }
             frameRenderObj.matWidth = this.value;
-            if (shouldRender) renderObject();
+            renderObject();
         }
     }
 }
@@ -285,7 +288,7 @@ export function determinePrefSet(objectID, shouldRender) {
     if (shouldRender) renderObject();
 }
     
-export function createEventListenersForRadioButtonGroups(shouldRender) {
+export function createEventListenersForRadioButtonGroups() {
     const inputs = document.querySelectorAll("input[type=radio]");
     let x = inputs.length;
     while(x--)
@@ -326,14 +329,14 @@ export function createEventListenersForRadioButtonGroups(shouldRender) {
             } else {
                 frameRenderObj.matColor = "mint";
             }
-            if (shouldRender) renderObject();
+            renderObject();
         }, 0);       
 }
 
 
 export function onPageLoad() {
-    connectSliderTextfield(false);
-    createEventListenersForRadioButtonGroups(false);
+    connectSliderTextfield();
+    createEventListenersForRadioButtonGroups();
     const parts = window.location.href.split("?objectID=");
     if (parts.length > 1) {
         determineArtwork(parts[1]);
