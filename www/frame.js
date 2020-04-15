@@ -125,7 +125,7 @@ export async function determineArtwork(objectID) {
             window.location.href = "search.html";
         }
         const img = document.getElementById("preview-image");
-        img.style.display = "none";
+        // img.style.display = "none";
         img.src = artworks.primaryImageSmall;
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
