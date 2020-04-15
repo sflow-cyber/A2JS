@@ -289,8 +289,7 @@ export function createEventListenersForRadioButtonGroups() {
     const inputs = document.querySelectorAll("input[type=radio]");
     let x = inputs.length;
     while(x--)
-        inputs[x].addEventListener("change",function(){
-            console.log("rb-change");
+        inputs[x].addEventListener("change",function() {
             // printSize
             if (document.getElementById("print-size-s").checked) {
                 frameRenderObj.printSize = "S";
@@ -327,6 +326,7 @@ export function createEventListenersForRadioButtonGroups() {
             } else {
                 frameRenderObj.matColor = "mint";
             }
+            console.log("rb-change");
             renderObject();
         }, 0);       
 }
