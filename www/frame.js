@@ -317,7 +317,7 @@ export function updateFROjbect(str) {
         // window.location.href = "search.html";
         console.log("redir to search page");
     }
-    what = "printSize";
+    what = "printSize=";
     i = str.indexOf(what);
     if (i > -1) {
         let j = str.indexOf("&", i);
@@ -329,7 +329,7 @@ export function updateFROjbect(str) {
     } else {
         frameRenderObj.cartItem.printSize = 'M';
     }
-    what = "frameWidth";
+    what = "frameWidth=";
     i = str.indexOf(what);
     if (i > -1) {
         let j = str.indexOf("&", i);
@@ -341,7 +341,7 @@ export function updateFROjbect(str) {
     }else { 
         frameRenderObj.cartItem.frameWidth = 40;
     }
-    what = "frameStyle";
+    what = "frameStyle=";
     i = str.indexOf(what);
     if (i > -1) {
         let j = str.indexOf("&", i);
@@ -353,7 +353,7 @@ export function updateFROjbect(str) {
     } else {
         frameRenderObj.cartItem.frameStyle = "natural";
     }
-    what = "matWidth";
+    what = "matWidth=";
     i = str.indexOf(what);
     if (i > -1) {
         let j = str.indexOf("&", i);
@@ -365,7 +365,7 @@ export function updateFROjbect(str) {
     } else {
         frameRenderObj.cartItem.matWidth = 55;
     }
-    what = "matColor";
+    what = "matColor=";
     i = str.indexOf(what);
     if (i > -1) {
         let j = str.indexOf("&", i);
