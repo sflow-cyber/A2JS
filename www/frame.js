@@ -327,8 +327,8 @@ export function createEventListenersForRadioButtonGroups() {
             } else {
                 frameRenderObj.matColor = "mint";
             }
-        }, 0);
-        renderObject();
+            renderObject();
+        }, 0);       
 }
 
 
