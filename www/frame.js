@@ -350,6 +350,7 @@ export function onPageLoad() {
             window.location.href = "search.html";
         }
         renderObject();
+        document.getElementById("frameWidth").value = 4.0;
     }
     if (img.complete) {
         console.log("img complete");
