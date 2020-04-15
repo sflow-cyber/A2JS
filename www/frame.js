@@ -217,29 +217,29 @@ export function connectSliderTextfield() {
 }
 
 export function determinePrefSet() {
-        if (frameRenderObject.cartItem.printSize == 'S') {    
+        if (frameRenderObj.cartItem.printSize == 'S') {    
             document.getElementById("print-size-s").checked = true;
-        } else if (frameRenderObject.cartItem.printSize == 'L') {
+        } else if (frameRenderObj.cartItem.printSize == 'L') {
             document.getElementById("print-size-l").checked = true;
         } else {
             document.getElementById("print-size-m").checked = true;
         }
-        if (frameRenderObject.cartItem.frameStyle == "classic") {    
+        if (frameRenderObj.cartItem.frameStyle == "classic") {    
             document.getElementById("frame-style-classic").checked = true;
-        } else if (frameRenderObject.cartItem.frameStyle == "shabby") {
+        } else if (frameRenderObj.cartItem.frameStyle == "shabby") {
             document.getElementById("frame-style-shabby").checked = true;
-        } else if (frameRenderObject.cartItem.frameStyle == "elegant") {
+        } else if (frameRenderObj.cartItem.frameStyle == "elegant") {
             document.getElementById("frame-style-elegant").checked = true;
         } else {
             document.getElementById("frame-style-natural").checked = true;
         }
-        if (frameRenderObject.cartItem.matColor == "ivory") {    
+        if (frameRenderObj.cartItem.matColor == "ivory") {    
             document.getElementById("mat-color-ivory").checked = true;
-        } else if (frameRenderObject.cartItem.matColor == "wine") {
+        } else if (frameRenderObj.cartItem.matColor == "wine") {
             document.getElementById("mat-color-wine").checked = true;
-        } else if (frameRenderObject.cartItem.matColor == "indigo") {
+        } else if (frameRenderObj.cartItem.matColor == "indigo") {
             document.getElementById("mat-color-indigo").checked = true;
-        } else if (frameRenderObject.cartItem.matColor == "coal") {
+        } else if (frameRenderObj.cartItem.matColor == "coal") {
             document.getElementById("mat-color-coal").checked = true;
         } else {
             document.getElementById("mat-color-mint").checked = true;
@@ -248,10 +248,10 @@ export function determinePrefSet() {
         const frameWidthSlid = document.getElementById("frameWidthR");
         const matTF = document.getElementById("matWidth");
         const matSlid = document.getElementById("matWidthR");
-        frameWidthTF.value = frameRenderObject.cartItem.frameWidth / 10;
-        frameWidthSlid.value = frameRenderObject.cartItem.frameWidth / 10;
-        matTF.value = frameRenderObject.cartItem.matWidth / 10;
-        matSlid.value = frameRenderObject.cartItem.matWidth / 10;
+        frameWidthTF.value = frameRenderObj.cartItem.frameWidth / 10;
+        frameWidthSlid.value = frameRenderObj.cartItem.frameWidth / 10;
+        matTF.value = frameRenderObj.cartItem.matWidth / 10;
+        matSlid.value = frameRenderObj.cartItem.matWidth / 10;
 } 
     
 export function createEventListenersForRadioButtonGroups() {
