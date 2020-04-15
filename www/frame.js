@@ -332,6 +332,20 @@ export function createEventListenersForRadioButtonGroups() {
 
 
 export function onPageLoad() {
+    const img = document.querySelector('#preview-image');
+
+    function loaded() {
+        alert('loaded')
+    }
+
+    if (img.complete) {
+        loaded()
+    } else {
+        img.addEventListener('load', loaded)
+        img.addEventListener('error', function() {
+            alert('error')
+        })
+    }
     connectSliderTextfield();
     createEventListenersForRadioButtonGroups();
     const parts = window.location.href.split("?objectID=");
