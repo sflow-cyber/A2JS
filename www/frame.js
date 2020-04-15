@@ -331,9 +331,14 @@ export function updateFROjbect(str) {
     }
     frameRenderObj.cartItem.printSize = getValFromStr(str, "printSize=", 'M');
     frameRenderObj.cartItem.frameWidth = parseInt(getValFromStr(str, "frameWidth=", 40));
+    frameRenderObj.cartItem.frameWidth = Math.min(50, frameRenderObj.cartItem.frameWidth);
+    frameRenderObj.cartItem.frameWidth = Math.max(20, frameRenderObj.cartItem.frameWidth);
     frameRenderObj.cartItem.frameStyle = getValFromStr(str, "frameStyle=", "natural");
     frameRenderObj.cartItem.matWidth = parseInt(getValFromStr(str, "matWidth=", 55));
+    frameRenderObj.cartItem.matWidth = Math.min(100, frameRenderObj.cartItem.matWidth);
+    frameRenderObj.cartItem.matWidth = Math.max(0, frameRenderObj.cartItem.matWidth);
     frameRenderObj.cartItem.matColor = getValFromStr(str, "matColor=", "mint");
+    exportNewUrl();
 }
 
 export function getValFromStr(str, what, defaultVal) {
