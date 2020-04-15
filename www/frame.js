@@ -91,10 +91,10 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 
 export function renderObject() {
     const imgRef = document.getElementById("preview-image");
-    imgRef.style.display = "none";
+    // imgRef.style.display = "none";
     imgRef.src = frameRenderObj.imgSource;
     render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
-    imgRef.style.display = "initial";   
+    // imgRef.style.display = "initial";   
 }
 
 /**
