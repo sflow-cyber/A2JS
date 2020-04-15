@@ -333,12 +333,12 @@ export function updateFROjbect(str) {
     frameRenderObj.cartItem.frameWidth = parseInt(getValFromStr(str, "frameWidth=", 40));
     frameRenderObj.cartItem.frameWidth = Math.min(50, frameRenderObj.cartItem.frameWidth);
     frameRenderObj.cartItem.frameWidth = Math.max(20, frameRenderObj.cartItem.frameWidth);
-    if (frameRenderObj.cartItem.frameWidth == NaN) frameRenderObj.cartItem.frameWidth = 40;
+    if (isNaN(frameRenderObj.cartItem.frameWidth)) frameRenderObj.cartItem.frameWidth = 40;
     frameRenderObj.cartItem.frameStyle = getValFromStr(str, "frameStyle=", "natural");
     frameRenderObj.cartItem.matWidth = parseInt(getValFromStr(str, "matWidth=", 55));
     frameRenderObj.cartItem.matWidth = Math.min(100, frameRenderObj.cartItem.matWidth);
     frameRenderObj.cartItem.matWidth = Math.max(0, frameRenderObj.cartItem.matWidth);
-    if (frameRenderObj.cartItem.matWidth == NaN) frameRenderObj.cartItem.matWidth = 55;
+    if (isNaN(frameRenderObj.cartItem.matWidth)) frameRenderObj.cartItem.matWidth = 55;
     frameRenderObj.cartItem.matColor = getValFromStr(str, "matColor=", "mint");
     exportNewUrl();
 }
