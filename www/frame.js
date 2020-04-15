@@ -118,7 +118,6 @@ export function calculatePrice(printSize, frameStyle, frameWidth, matWidth) {
  *
  */
 export async function determineArtwork() {
-    console.log(frameRenderObj.cartItem.objectID);
     const artWorkUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/" + frameRenderObj.cartItem.objectID;
     try {
         const response = await fetch(artWorkUrl, {method: 'GET'});
@@ -300,77 +299,27 @@ export function createEventListenersForRadioButtonGroups() {
 }
 
 export function updateFROjbect(str) {
-    let what = "objectID=";
+    getValFromStr(str, "objectID=", frameRenderObj.cartItem.objectID, -1);
+    if (frameRenderObj.cartItem.objectID == -1) {
+        window.location.href = "search.html";
+    }
+    getValFromStr(str, "printSize=", frameRenderObj.cartItem.printSize, 'M');
+    getValFromStr(str, "frameWidth=", frameRenderObj.cartItem.frameWidth, 40);
+    getValFromStr(str, "frameStyle=", frameRenderObj.cartItem.frameStyle, "natural");
+    getValFromStr(str, "matWidth=", frameRenderObj.cartItem.matWidth, 55);
+    getValFromStr(str, "matColor=", frameRenderObj.cartItem.matColor, "mint");
+}
+
+export function getValFromStr(str, what, target, defaultVal) {
     let i = str.indexOf(what);
     if (i > -1) {
         let j = str.indexOf("&", i);
         if (j == -1) {
             j = str.length;
         }
-        frameRenderObj.cartItem.objectID = str.substring(i + what.length, j);
-        console.log("objectID: " + frameRenderObj.cartItem.objectID);
+        target = str.substring(i + what.length, j);
     } else {
-        window.location.href = "search.html";
-    }
-    what = "printSize=";
-    i = str.indexOf(what);
-    if (i > -1) {
-        let j = str.indexOf("&", i);
-        if (j == -1) {
-            j = str.length;
-        }
-        frameRenderObj.cartItem.printSize = str.substring(i + what.length, j);
-        console.log("printSize: " + frameRenderObj.cartItem.printSize);
-    } else {
-        frameRenderObj.cartItem.printSize = 'M';
-    }
-    what = "frameWidth=";
-    i = str.indexOf(what);
-    if (i > -1) {
-        let j = str.indexOf("&", i);
-        if (j == -1) {
-            j = str.length;
-        }
-        frameRenderObj.cartItem.frameWidth = parseFloat(str.substring(i + what.length, j));
-        console.log("frameWidth: " + frameRenderObj.cartItem.frameWidth);
-    }else { 
-        frameRenderObj.cartItem.frameWidth = 40;
-    }
-    what = "frameStyle=";
-    i = str.indexOf(what);
-    if (i > -1) {
-        let j = str.indexOf("&", i);
-        if (j == -1) {
-            j = str.length;
-        }
-        frameRenderObj.cartItem.frameStyle = str.substring(i + what.length, j);
-        console.log("frameStyle: " + frameRenderObj.cartItem.frameStyle);
-    } else {
-        frameRenderObj.cartItem.frameStyle = "natural";
-    }
-    what = "matWidth=";
-    i = str.indexOf(what);
-    if (i > -1) {
-        let j = str.indexOf("&", i);
-        if (j == -1) {
-            j = str.length;
-        }
-        frameRenderObj.cartItem.matWidth = parseFloat(str.substring(i + what.length, j));
-        console.log("matWidth: " + frameRenderObj.cartItem.matWidth);
-    } else {
-        frameRenderObj.cartItem.matWidth = 55;
-    }
-    what = "matColor=";
-    i = str.indexOf(what);
-    if (i > -1) {
-        let j = str.indexOf("&", i);
-        if (j == -1) {
-            j = str.length;
-        }
-        frameRenderObj.cartItem.matColor = str.substring(i + what.length, j);
-        console.log("matColor: " + frameRenderObj.cartItem.matColor);
-    } else {
-        frameRenderObj.cartItem.matColor = "mint";
+        target = defaultVal;
     }
 }
 
