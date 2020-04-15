@@ -309,7 +309,7 @@ export function updateFROjbect(str) {
         let j = str.indexOf("&", i);
         frameRenderObj.cartItem.objectID = str.substring(i + what.length, j);
     } else {
-        // window.location.href = "search.html";
+        window.location.href = "search.html";
     }
     what = "printSize";
     i = str.indexOf(what);
@@ -356,7 +356,7 @@ export function updateFROjbect(str) {
 export function onPageLoad() {
     connectSliderTextfield();
     createEventListenersForRadioButtonGroups();
-    const parts = window.location.href.split("?objectID=");
+    const parts = window.location.href.split("?");
     updateFROjbect(parts[1]);
     if (parts.length > 1) {
         determineArtwork();
