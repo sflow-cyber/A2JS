@@ -89,9 +89,9 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 }
 
 export function renderObject() {
-    document.querySelector('#preview-image').style.display = "inline-block";
+    // document.querySelector('#preview-image').style.display = "inline-block";
     render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
-    document.querySelector('#preview-image').style.display = "inline-block";
+    // document.querySelector('#preview-image').style.display = "inline-block";
 }
 
 /**
@@ -334,8 +334,8 @@ export function createEventListenersForRadioButtonGroups() {
 
 
 export function onPageLoad() {
-    const img = document.querySelector('#preview-image');
-    img.style.display = "none";
+    // const img = document.querySelector('#preview-image');
+    // img.style.display = "none";
     connectSliderTextfield();
     createEventListenersForRadioButtonGroups();
     const parts = window.location.href.split("?objectID=");
@@ -343,7 +343,7 @@ export function onPageLoad() {
         determineArtwork(parts[1]);
         determinePrefSet(parts[1], false);
         function loaded() {
-            img.style.display = "inline-block";
+            // img.style.display = "inline-block";
             renderObject();
         }
     
