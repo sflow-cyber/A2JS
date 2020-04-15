@@ -302,6 +302,7 @@ export function createEventListenersForRadioButtonGroups() {
 }
 
 export function updateFROjbect(str) {
+    console.log(str);
     let what = "objectID=";
     let i = str.indexOf(what);
     if (i > -1) {
