@@ -90,6 +90,7 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 
 export function renderObject() {
     render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
+    document.getElementById("preview-image").style.visibility = "visible";
 }
 
 /**
@@ -124,6 +125,7 @@ export async function determineArtwork(objectID) {
             window.location.href = "search.html";
         }
         const img = document.getElementById("preview-image");
+        img.style.visibility = "hidden";
         img.src = artworks.primaryImageSmall;
         console.log(artworks.artistDisplayName);
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
@@ -213,8 +215,7 @@ export function connectSliderTextfield() {
     });
 }
 
-// ToDo: change this, there is a render object now
-export function determinePrefSet(objectID, shouldRender) {
+export function determinePrefSet(objectID) {
     const item = Cart.getItem(objectID);
     if (item != null) {
         if (item.printSize == 'S') {    
@@ -284,7 +285,6 @@ export function determinePrefSet(objectID, shouldRender) {
         matTF.value = frameRenderObject.matWidth;
         matSlid.value = frameRenderObject.matWidth;
     }
-    // if (shouldRender) renderObject();
 }
     
 export function createEventListenersForRadioButtonGroups() {
@@ -339,7 +339,7 @@ export function onPageLoad() {
     const parts = window.location.href.split("?objectID=");
     if (parts.length > 1) {
         determineArtwork(parts[1]);
-        determinePrefSet(parts[1], false);
+        determinePrefSet(parts[1]);
         renderObject();
     } else {
         window.location.href = "search.html";
