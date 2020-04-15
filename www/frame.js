@@ -291,7 +291,7 @@ export function createEventListenersForRadioButtonGroups() {
     const inputs = document.querySelectorAll("input[type=radio]");
     let x = inputs.length;
     while(x--)
-        inputs[x].addEventListener("change",function() {
+        inputs[x].addEventListener('change', () => {
             // printSize
             if (document.getElementById("print-size-s").checked) {
                 frameRenderObj.printSize = "S";
