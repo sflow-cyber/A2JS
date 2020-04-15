@@ -1,15 +1,17 @@
 import { CartItem } from './cart-item.js';
 import * as Cart from './cart.js';
 
-// ToDo: re-render object if any of the radio buttons is changed
 export var frameRenderObj = {
     img:document.getElementById("preview-image"), 
-    container:document.getElementById("preview-container"), 
-    printSize:'M', 
-    frameStyle:"natural", 
-    frameWidth:4.0, 
-    matColor:"mint", 
-    matWidth:5.5
+    container:document.getElementById("preview-container"),
+    cartItem: { 
+        objectID: null,
+        printSize:'M', 
+        frameStyle:"natural", 
+        frameWidth:4.0, 
+        matColor:"mint", 
+        matWidth:5.5
+    }
 };
 
 /**
@@ -89,7 +91,7 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 }
 
 export function renderObject() {
-    render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
+    render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.cartItem.printSize, frameRenderObj.cartItem.frameStyle, frameRenderObj.cartItem.frameWidth, frameRenderObj.cartItem.matColor, frameRenderObj.cartItem.matWidth);
     document.getElementById("preview-image").style.visibility = "visible";
 }
 
@@ -156,13 +158,13 @@ export function connectSliderTextfield() {
 
     frameWidthSlid.addEventListener('input', () => {
         frameWidthTF.value = this.value;
-        frameRenderObj.frameWidth = this.value;
+        frameRenderObj.cartItem.frameWidth = this.value;
         renderObject();
     });
 
     matSlid.addEventListener('input', () => {
         matTF.value = this.value;
-        frameRenderObj.matWidth = this.value;
+        frameRenderObj.cartItem.matWidth = this.value;
         renderObject();
     });
 
@@ -174,7 +176,7 @@ export function connectSliderTextfield() {
         tfVal = Math.max(2, tfVal);
         frameWidthSlid.value = tfVal;
         this.value = tfVal;
-        frameRenderObj.frameWidth = tfVal;
+        frameRenderObj.cartItem.frameWidth = tfVal;
         renderObject();
     });
 
@@ -186,7 +188,7 @@ export function connectSliderTextfield() {
         tfVal = Math.max(0, tfVal);
         matSlid.value = tfVal;
         this.value = tfVal;
-        frameRenderObj.matWidth = tfVal;
+        frameRenderObj.cartItem.matWidth = tfVal;
         renderObject();
     });
 
@@ -209,7 +211,7 @@ export function connectSliderTextfield() {
             if (this.value.length == 0) {
                 this.value = matSlid.value;
             }
-            frameRenderObj.matWidth = this.value;
+            frameRenderObj.cartItem.matWidth = this.value;
             renderObject();
         }
     });
@@ -220,51 +222,51 @@ export function determinePrefSet(objectID) {
     if (item != null) {
         if (item.printSize == 'S') {    
             document.getElementById("print-size-s").checked = true;
-            frameRenderObject.printSize = 'S';
+            frameRenderObject.cartItem.printSize = 'S';
         } else if (item.printSize == 'M') {
             document.getElementById("print-size-m").checked = true;
-            frameRenderObject.printSize = 'M';
+            frameRenderObject.cartItem.printSize = 'M';
         } else if (item.printSize == 'L') {
             document.getElementById("print-size-l").checked = true;
-            frameRenderObject.printSize = 'L';
+            frameRenderObject.cartItem.printSize = 'L';
         } else {
             document.getElementById("print-size-m").checked = true;
-            frameRenderObject.printSize = 'M';
+            frameRenderObject.cartItem.printSize = 'M';
         }
         if (item.frameStyle == "classic") {    
             document.getElementById("frame-style-classic").checked = true;
-            frameRenderObject.frameStyle = "classic";
+            frameRenderObject.cartItem.frameStyle = "classic";
         } else if (item.frameStyle == "natural") {
             document.getElementById("frame-style-natural").checked = true;
-            frameRenderObject.frameStyle = "natural";
+            frameRenderObject.cartItem.frameStyle = "natural";
         } else if (item.frameStyle == "shabby") {
             document.getElementById("frame-style-shabby").checked = true;
-            frameRenderObject.frameStyle = "shabby";
+            frameRenderObject.cartItem.frameStyle = "shabby";
         } else if (item.frameStyle == "elegant") {
             document.getElementById("frame-style-elegant").checked = true;
-            frameRenderObject.frameStyle = "elegant";
+            frameRenderObject.cartItem.frameStyle = "elegant";
         } else {
             document.getElementById("frame-style-natural").checked = true;
-            frameRenderObject.frameStyle = "natural";
+            frameRenderObject.cartItem.frameStyle = "natural";
         }
         if (item.matColor == "ivory") {    
             document.getElementById("mat-color-ivory").checked = true;
-            frameRenderObject.matColor = "ivory";
+            frameRenderObject.cartItem.matColor = "ivory";
         } else if (item.matColor == "mint") {
             document.getElementById("mat-color-mint").checked = true;
-            frameRenderObject.matColor = "mint";
+            frameRenderObject.cartItem.matColor = "mint";
         } else if (item.matColor == "wine") {
             document.getElementById("mat-color-wine").checked = true;
-            frameRenderObject.matColor = "wine";
+            frameRenderObject.cartItem.matColor = "wine";
         } else if (item.matColor == "indigo") {
             document.getElementById("mat-color-indigo").checked = true;
-            frameRenderObject.matColor = "indigo";
+            frameRenderObject.cartItem.matColor = "indigo";
         } else if (item.matColor == "coal") {
             document.getElementById("mat-color-coal").checked = true;
-            frameRenderObject.matColor = "coal";
+            frameRenderObject.cartItem.matColor = "coal";
         } else {
             document.getElementById("mat-color-mint").checked = true;
-            frameRenderObject.matColor = "mint";
+            frameRenderObject.cartItem.matColor = "mint";
         }
         const frameWidthTF = document.getElementById("frameWidth");
         const frameWidthSlid = document.getElementById("frameWidthR");
@@ -272,18 +274,18 @@ export function determinePrefSet(objectID) {
         const matSlid = document.getElementById("matWidthR");
         if (item.frameWidth != null) {
             if (item.frameWidth >= 2 && item.frameWidth <= 5) {
-               frameRenderObject.frameWidth = item.frameWidth;  
+               frameRenderObject.cartItem.frameWidth = item.frameWidth;  
             }
         }
         if (item.matWidth != null) {
             if (item.matWidth >= 0 && item.matWidth <= 10) {
-                frameRenderObject.matWidth = item.matWidth;
+                frameRenderObject.cartItem.matWidth = item.matWidth;
             }
         }
-        frameWidthTF.value = frameRenderObject.frameWidth;
-        frameWidthSlid.value = frameRenderObject.frameWidth;
-        matTF.value = frameRenderObject.matWidth;
-        matSlid.value = frameRenderObject.matWidth;
+        frameWidthTF.value = frameRenderObject.cartItem.frameWidth;
+        frameWidthSlid.value = frameRenderObject.cartItem.frameWidth;
+        matTF.value = frameRenderObject.cartItem.matWidth;
+        matSlid.value = frameRenderObject.cartItem.matWidth;
     }
 }
     
@@ -294,39 +296,39 @@ export function createEventListenersForRadioButtonGroups() {
         inputs[x].addEventListener('change', () => {
             // printSize
             if (document.getElementById("print-size-s").checked) {
-                frameRenderObj.printSize = "S";
+                frameRenderObj.cartItem.printSize = "S";
             } else if (document.getElementById("print-size-m").checked) {
-                frameRenderObj.printSize = "M";
+                frameRenderObj.cartItem.printSize = "M";
             } else if (document.getElementById("print-size-l").checked) {
-                frameRenderObj.printSize = "L";
+                frameRenderObj.cartItem.printSize = "L";
             } else {
-                frameRenderObj.printSize = "M";
+                frameRenderObj.cartItem.printSize = "M";
             }
             // frameStyle
             if (document.getElementById("frame-style-classic").checked) {
-                frameRenderObj.frameStyle = "classic";
+                frameRenderObj.cartItem.frameStyle = "classic";
             } else if (document.getElementById("frame-style-natural").checked) {
-                frameRenderObj.frameStyle = "natural";
+                frameRenderObj.cartItem.frameStyle = "natural";
             } else if (document.getElementById("frame-style-shabby").checked) {
-                frameRenderObj.frameStyle = "shabby";
+                frameRenderObj.cartItem.frameStyle = "shabby";
             } else if (document.getElementById("frame-style-elegant").checked) {
-                frameRenderObj.frameStyle = "elegant";
+                frameRenderObj.cartItem.frameStyle = "elegant";
             } else {
-                frameRenderObj.frameStyle = "natural";
+                frameRenderObj.cartItem.frameStyle = "natural";
             }
             // matColor
             if (document.getElementById("mat-color-ivory").checked) {
-                frameRenderObj.matColor = "ivory";
+                frameRenderObj.cartItem.matColor = "ivory";
             } else if (document.getElementById("mat-color-mint").checked) {
-                frameRenderObj.matColor = "mint";
+                frameRenderObj.cartItem.matColor = "mint";
             } else if (document.getElementById("mat-color-wine").checked) {
-                frameRenderObj.matColor = "wine";
+                frameRenderObj.cartItem.matColor = "wine";
             } else if (document.getElementById("mat-color-indigo").checked) {
-                frameRenderObj.matColor = "indigo";
+                frameRenderObj.cartItem.matColor = "indigo";
             } else if (document.getElementById("mat-color-coal").checked) {
-                frameRenderObj.matColor = "coal";
+                frameRenderObj.cartItem.matColor = "coal";
             } else {
-                frameRenderObj.matColor = "mint";
+                frameRenderObj.cartItem.matColor = "mint";
             }
             renderObject();
         }, 0);       
