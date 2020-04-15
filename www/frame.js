@@ -336,7 +336,7 @@ export function onPageLoad() {
     connectSliderTextfield();
     createEventListenersForRadioButtonGroups();
     const parts = window.location.href.split("?");
-    window.history.pushState(null, null, config.html);
+    window.history.pushState(null, null, "config.html");
     updateFROjbect(parts[1]);
     if (parts.length > 1) {
         determinePrefSet();
