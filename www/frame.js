@@ -90,7 +90,6 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 
 export function renderObject() {
     render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
-    document.getElementById("preview-image").style.visibility = "visible";
 }
 
 /**
@@ -335,31 +334,15 @@ export function createEventListenersForRadioButtonGroups() {
 
 
 export function onPageLoad() {
-    const img = document.querySelector('#preview-image');
-    img.style.visibility = "hidden";
-
-    function loaded() {
-        connectSliderTextfield();
-        createEventListenersForRadioButtonGroups();
-        const parts = window.location.href.split("?objectID=");
-        if (parts.length > 1) {
-            determineArtwork(parts[1]);
-            determinePrefSet(parts[1], false);
-           
-        } else {
-            window.location.href = "search.html";
-        }
-        renderObject();
-        document.getElementById("frameWidth").value = 4.0;
-    }
-    if (img.complete) {
-        console.log("img complete");
-        loaded();
+    connectSliderTextfield();
+    createEventListenersForRadioButtonGroups();
+    const parts = window.location.href.split("?objectID=");
+    if (parts.length > 1) {
+        determineArtwork(parts[1]);
+        determinePrefSet(parts[1], false);
+        
     } else {
-        img.addEventListener('load', loaded);
-        img.addEventListener('error', function() {
-            window.location.href="search.html";
-        });
-    } 
-    
+        window.location.href = "search.html";
+    }
+    renderObject();
 }
