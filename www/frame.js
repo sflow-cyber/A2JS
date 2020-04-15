@@ -343,6 +343,7 @@ export function onPageLoad() {
         determineArtwork(parts[1]);
         determinePrefSet(parts[1], false);
         function loaded() {
+            img.style.display = "inline-block";
             renderObject();
         }
     
