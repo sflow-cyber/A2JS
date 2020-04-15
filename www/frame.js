@@ -332,8 +332,8 @@ export function createEventListenersForRadioButtonGroups() {
 
 
 export function onPageLoad() {
-    // const img = document.querySelector('#preview-image');
-    // img.style.display = "none";
+    const img = document.querySelector('#preview-image');
+    img.style.display = "none";
     connectSliderTextfield();
     createEventListenersForRadioButtonGroups();
     const parts = window.location.href.split("?objectID=");
@@ -341,7 +341,7 @@ export function onPageLoad() {
         determineArtwork(parts[1]);
         determinePrefSet(parts[1], false);
         renderObject();
-        // img.style.display = "block";
+        img.style.display = "block";
     } else {
         window.location.href = "search.html";
     }
