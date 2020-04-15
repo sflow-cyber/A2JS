@@ -117,8 +117,8 @@ export function calculatePrice(printSize, frameStyle, frameWidth, matWidth) {
  * page.
  *
  */
-export async function determineArtwork(objectID) {
-    const artWorkUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/" + objectID;
+export async function determineArtwork() {
+    const artWorkUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/" + frameRenderObj.cartItem.objectID;
     try {
         const response = await fetch(artWorkUrl, {method: 'GET'});
         const artworks = await response.json();
@@ -129,7 +129,6 @@ export async function determineArtwork(objectID) {
         const img = document.getElementById("preview-image");
         img.style.visibility = "hidden";
         img.src = artworks.primaryImageSmall;
-        console.log(artworks.artistDisplayName);
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
     } catch(e) {
@@ -217,7 +216,7 @@ export function connectSliderTextfield() {
     });
 }
 
-export function determinePrefSet(objectID) {
+export function determinePrefSet() {
         if (frameRenderObject.cartItem.printSize == 'S') {    
             document.getElementById("print-size-s").checked = true;
         } else if (frameRenderObject.cartItem.printSize == 'L') {
@@ -302,7 +301,7 @@ export function createEventListenersForRadioButtonGroups() {
 }
 
 export function updateFROjbect(str) {
-    alert(str);
+    console.log(str);
     let what = "objectID=";
     let i = str.indexOf(what);
     if (i > -1) {
