@@ -8,9 +8,9 @@ export var frameRenderObj = {
         objectID: null,
         printSize:'M', 
         frameStyle:"natural", 
-        frameWidth:4.0, 
+        frameWidth:40, 
         matColor:"mint", 
-        matWidth:5.5
+        matWidth:55
     }
 };
 
@@ -248,10 +248,10 @@ export function determinePrefSet() {
         const frameWidthSlid = document.getElementById("frameWidthR");
         const matTF = document.getElementById("matWidth");
         const matSlid = document.getElementById("matWidthR");
-        frameWidthTF.value = frameRenderObject.cartItem.frameWidth;
-        frameWidthSlid.value = frameRenderObject.cartItem.frameWidth;
-        matTF.value = frameRenderObject.cartItem.matWidth;
-        matSlid.value = frameRenderObject.cartItem.matWidth;
+        frameWidthTF.value = frameRenderObject.cartItem.frameWidth / 10;
+        frameWidthSlid.value = frameRenderObject.cartItem.frameWidth / 10;
+        matTF.value = frameRenderObject.cartItem.matWidth / 10;
+        matSlid.value = frameRenderObject.cartItem.matWidth / 10;
     
 } 
     
@@ -324,7 +324,7 @@ export function updateFROjbect(str) {
         let j = str.indexOf("&", i);
         frameRenderObj.cartItem.frameWidth = str.substring(i + what.length, j);
     }else {
-        frameRenderObj.cartItem.frameWidth = 4;
+        frameRenderObj.cartItem.frameWidth = 40;
     }
     what = "frameStyle";
     i = str.indexOf(what);
@@ -340,7 +340,7 @@ export function updateFROjbect(str) {
         let j = str.indexOf("&", i);
         frameRenderObj.cartItem.matWidth = str.substring(i + what.length, j);
     } else {
-        frameRenderObj.cartItem.matWidth = 5.5;
+        frameRenderObj.cartItem.matWidth = 55;
     }
     what = "matColor";
     i = str.indexOf(what);
