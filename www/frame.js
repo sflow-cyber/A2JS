@@ -334,19 +334,22 @@ export function createEventListenersForRadioButtonGroups() {
 export function onPageLoad() {
     const img = document.querySelector('#preview-image');
     img.style.display = "none";
+    connectSliderTextfield();
+    createEventListenersForRadioButtonGroups();
+    const parts = window.location.href.split("?objectID=");
+    if (parts.length > 1) {
+        determineArtwork(parts[1]);
+        determinePrefSet(parts[1], false);
+        renderObject();
+        img.style.display = "initial";
+    } else {
+        window.location.href = "search.html";
+    }
 
+    /*
     function loaded() {
-        connectSliderTextfield();
-        createEventListenersForRadioButtonGroups();
-        const parts = window.location.href.split("?objectID=");
-        if (parts.length > 1) {
-            determineArtwork(parts[1]);
-            determinePrefSet(parts[1], false);
-            renderObject();
-            img.style.display = "initial";
-        } else {
-            window.location.href = "search.html";
-        }
+        
+        
     }
 
     if (img.complete) {
@@ -356,6 +359,6 @@ export function onPageLoad() {
         img.addEventListener('error', function() {
             window.location.href="search.html";
         });
-    }
+    } */
     
 }
