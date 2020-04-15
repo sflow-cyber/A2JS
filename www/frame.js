@@ -90,6 +90,7 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 
 export function renderObject() {
     render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
+    document.querySelector('#preview-image').style.display = "inline-block";
 }
 
 /**
@@ -341,7 +342,6 @@ export function onPageLoad() {
         determineArtwork(parts[1]);
         determinePrefSet(parts[1], false);
         renderObject();
-        img.style.display = "inline-block";
     } else {
         window.location.href = "search.html";
     }
