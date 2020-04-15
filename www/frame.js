@@ -158,13 +158,13 @@ export function connectSliderTextfield() {
         renderObject();
     });
 
-    matSlid.oninput = function() {
+    matSlid.addEventListener('input', () => {
         matTF.value = this.value;
         frameRenderObj.matWidth = this.value;
         renderObject();
-    }
+    });
 
-    frameWidthTF.oninput = function() {
+    frameWidthTF.addEventListener('input', () => {
         if (this.value.length == 0) return;
         if (isNaN(this.value)) return;
         let tfVal = parseFloat(parseInt(Math.round(this.value * 10))) / 10;
@@ -174,9 +174,9 @@ export function connectSliderTextfield() {
         this.value = tfVal;
         frameRenderObj.frameWidth = tfVal;
         renderObject();
-    }
+    });
 
-    matTF.oninput = function() {
+    matTF.addEventListener('input', () => {
         if (this.value.length == 0) return;
         if (isNaN(this.value)) return;
         let tfVal = parseFloat(parseInt(Math.round(this.value * 10))) / 10;
@@ -186,9 +186,9 @@ export function connectSliderTextfield() {
         this.value = tfVal;
         frameRenderObj.matWidth = tfVal;
         renderObject();
-    }
+    });
 
-    frameWidthTF.onkeypress = function(e) {
+    frameWidthTF.addEventListener('keypress', e => {
         if (e.which === 13) {
             e.preventDefault();
             this.blur();
@@ -198,9 +198,9 @@ export function connectSliderTextfield() {
             frameRenderObj.frameWidth = this.value;
             renderObject();
         }
-    } 
+    }); 
 
-    matTF.onkeypress = function(e) {
+    matTF.addEventListener('keypress', e => {
         if (e.which === 13) {
             e.preventDefault();
             this.blur();
@@ -210,7 +210,7 @@ export function connectSliderTextfield() {
             frameRenderObj.matWidth = this.value;
             renderObject();
         }
-    }
+    });
 }
 
 // ToDo: change this, there is a render object now
