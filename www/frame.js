@@ -91,8 +91,13 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 }
 
 export function renderObject() {
-    render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.cartItem.printSize, frameRenderObj.cartItem.frameStyle, frameRenderObj.cartItem.frameWidth, frameRenderObj.cartItem.matColor, frameRenderObj.cartItem.matWidth);
-    // document.getElementById("preview-image").style.visibility = "visible";
+    render(frameRenderObj.img, 
+        frameRenderObj.container, 
+        frameRenderObj.cartItem.printSize, 
+        frameRenderObj.cartItem.frameStyle, 
+        frameRenderObj.cartItem.frameWidth, 
+        frameRenderObj.cartItem.matColor, 
+        frameRenderObj.cartItem.matWidth);
 }
 
 /**
@@ -124,18 +129,16 @@ export async function determineArtwork() {
         const response = await fetch(artWorkUrl, {method: 'GET'});
         const artworks = await response.json();
         if (artworks.primaryImage.length == 0) {
-            // window.location.href = "search.html";
-            alert("redir to search");
+            window.location.href = "search.html";
         }
         const img = document.getElementById("preview-image");
-        // img.style.visibility = "hidden";
         img.onload = function() { renderObject(); }
         img.src = artworks.primaryImage;
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
     } catch(e) {
-        // window.location.href = "search.html";
-        alert("redir to search");
+        window.location.href = "search.html";
+        
     }
 }
 
@@ -305,8 +308,7 @@ export function createEventListenersForRadioButtonGroups() {
 export function updateFROjbect(str) {
     frameRenderObj.cartItem.objectID = getValFromStr(str, "objectID=", -1);
     if (frameRenderObj.cartItem.objectID == -1) {
-        // window.location.href = "search.html";
-        alert("redir to search");
+        window.location.href = "search.html";
     }
     frameRenderObj.cartItem.printSize = getValFromStr(str, "printSize=", 'M');
     frameRenderObj.cartItem.frameWidth = parseInt(getValFromStr(str, "frameWidth=", 40));
@@ -336,9 +338,7 @@ export function onPageLoad() {
     if (parts.length > 1) {
         determinePrefSet();
         determineArtwork();
-        // renderObject();
     } else {
-        // window.location.href = "search.html";
-        alert("redir to search");
+        window.location.href = "search.html";
     }
 }
