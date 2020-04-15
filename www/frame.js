@@ -309,7 +309,11 @@ export function updateFROjbect(str) {
     let i = str.indexOf(what);
     if (i > -1) {
         let j = str.indexOf("&", i);
+        if (j == -1) {
+            j = str.length;
+        }
         frameRenderObj.cartItem.objectID = str.substring(i + what.length, j);
+        console.log("i ; j" + i + " ; " + j);
     } else {
         // window.location.href = "search.html";
         console.log("redir to search page");
@@ -318,6 +322,9 @@ export function updateFROjbect(str) {
     i = str.indexOf(what);
     if (i > -1) {
         let j = str.indexOf("&", i);
+        if (j == -1) {
+            j = str.length;
+        }
         frameRenderObj.cartItem.printSize = str.substring(i + what.length, j);
     } else {
         frameRenderObj.cartItem.printSize = 'M';
@@ -326,6 +333,9 @@ export function updateFROjbect(str) {
     i = str.indexOf(what);
     if (i > -1) {
         let j = str.indexOf("&", i);
+        if (j == -1) {
+            j = str.length;
+        }
         frameRenderObj.cartItem.frameWidth = str.substring(i + what.length, j);
     }else {
         frameRenderObj.cartItem.frameWidth = 40;
@@ -334,6 +344,9 @@ export function updateFROjbect(str) {
     i = str.indexOf(what);
     if (i > -1) {
         let j = str.indexOf("&", i);
+        if (j == -1) {
+            j = str.length;
+        }
         frameRenderObj.cartItem.frameStyle = str.substring(i + what.length, j);
     } else {
         frameRenderObj.cartItem.frameStyle = "natural";
@@ -342,6 +355,9 @@ export function updateFROjbect(str) {
     i = str.indexOf(what);
     if (i > -1) {
         let j = str.indexOf("&", i);
+        if (j == -1) {
+            j = str.length;
+        }
         frameRenderObj.cartItem.matWidth = str.substring(i + what.length, j);
     } else {
         frameRenderObj.cartItem.matWidth = 55;
@@ -350,6 +366,9 @@ export function updateFROjbect(str) {
     i = str.indexOf(what);
     if (i > -1) {
         let j = str.indexOf("&", i);
+        if (j == -1) {
+            j = str.length;
+        }
         frameRenderObj.cartItem.matColor = str.substring(i + what.length, j);
     } else {
         frameRenderObj.cartItem.matColor = "mint";
