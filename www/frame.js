@@ -12,10 +12,6 @@ export var frameRenderObj = {
     matWidth:5.5
 };
 
-export function renderObject() {
-    render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
-}
-
 /**
  * Calculates the possible print sizes for an image.
  *
@@ -90,6 +86,10 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
     img.style.borderWidth = `${frameWidth * x}px`;
     img.style.backgroundColor = matColors[matColor];
     img.style.padding = `${matWidth * x}px`;
+}
+
+export function renderObject() {
+    render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
 }
 
 /**
@@ -211,85 +211,129 @@ export function connectSliderTextfield() {
     }
 }
 
+// ToDo: change this, there is a render object now
 export function determinePrefSet(objectID) {
     const item = Cart.getItem(objectID);
-    let printSize = 'M';
-    let frameStyle = "natural";
-    let matColor = "mint";
-    let frameWidth = 4.0;
-    let matWidth = 5.5;
     if (item != null) {
-        if (item.printSize == 'S') {    // ToDo: JSON Bezeichnungen festlegen!
+        if (item.printSize == 'S') {    
             document.getElementById("print-size-s").checked = true;
-            printSize = 'S';
+            renderObject.printSize = 'S';
         } else if (item.printSize == 'M') {
             document.getElementById("print-size-m").checked = true;
+            renderObject.printSize = 'M';
         } else if (item.printSize == 'L') {
             document.getElementById("print-size-l").checked = true;
-            printSize = 'L';
+            renderObject.printSize = 'L';
         } else {
             document.getElementById("print-size-m").checked = true;
+            renderObject.printSize = 'M';
         }
-        if (item.frameStyle == "classic") {     // ToDo: JSON Bezeichnungen festlegen!
+        if (item.frameStyle == "classic") {    
             document.getElementById("frame-style-classic").checked = true;
-            frameStyle = "classic";
+            renderObject.frameStyle = "classic";
         } else if (item.frameStyle == "natural") {
             document.getElementById("frame-style-natural").checked = true;
+            renderObject.frameStyle = "natural";
         } else if (item.frameStyle == "shabby") {
             document.getElementById("frame-style-shabby").checked = true;
-            frameStyle = "shabby";
+            renderObject.frameStyle = "shabby";
         } else if (item.frameStyle == "elegant") {
             document.getElementById("frame-style-elegant").checked = true;
-            frameStyle = "elegant";
+            renderObject.frameStyle = "elegant";
         } else {
             document.getElementById("frame-style-natural").checked = true;
+            renderObject.frameStyle = "natural";
         }
-        if (item.matColor == "ivory") {     // ToDo: JSON Bezeichnungen festlegen!
+        if (item.matColor == "ivory") {    
             document.getElementById("mat-color-ivory").checked = true;
-            matColor = "ivory";
+            renderObject.matColor = "ivory";
         } else if (item.matColor == "mint") {
             document.getElementById("mat-color-mint").checked = true;
+            renderObject.matColor = "mint";
         } else if (item.matColor == "wine") {
             document.getElementById("mat-color-wine").checked = true;
-            matColor = "wine";
+            renderObject.matColor = "wine";
         } else if (item.matColor == "indigo") {
             document.getElementById("mat-color-indigo").checked = true;
-            matColor = "indigo";
+            renderObject.matColor = "indigo";
         } else if (item.matColor == "coal") {
             document.getElementById("mat-color-coal").checked = true;
-            matColor = "coal";
+            renderObject.matColor = "coal";
         } else {
             document.getElementById("mat-color-mint").checked = true;
+            renderObject.matColor = "mint";
         }
         const frameWidthTF = document.getElementById("frameWidth");
         const frameWidthSlid = document.getElementById("frameWidthR");
         const matTF = document.getElementById("matWidth");
         const matSlid = document.getElementById("matWidthR");
-        frameWidthTF.value = 4.0;
-        frameWidthSlid.value = 4.0;
-        matTF.value = 5.5;
-        matSlid.value = 5.5;
         if (item.frameWidth != null) {
             if (item.frameWidth >= 2 && item.frameWidth <= 5) {
-               frameWidthSlid = item.frameWidth;
-               frameWidthTF = item.frameWidth;    
+               renderObject.frameWidth = item.frameWidth;  
             }
         }
         if (item.matWidth != null) {
             if (item.matWidth >= 0 && item.matWidth <= 10) {
-                matSlid = item.matWidth;
-                matTF = item.matWidth;
+                renderObject.matWidth = item.matWidth;
             }
         }
+        frameWidthTF.value = renderObject.frameWidth;
+        frameWidthSlid.value = renderObject.frameWidth;
+        matTF.value = renderObject.matWidth;
+        matSlid.value = renderObject.matWidth;
     }
-    const img = document.getElementById("preview-image");
-    const container = document.getElementById("preview-container");
-    render(img, container, printSize, frameStyle, frameWidth, matColor, matWidth);
+    renderObject();
 }
     
+export function createEventListenersForRadioButtonGroups() {
+    var inputs=document.querySelectorAll("input[type=radio]"),
+    x=inputs.length;
+    while(x--)
+        inputs[x].addEventListener("change",function(){
+            // printSize
+            if (document.getElementById("S").checked) {
+                frameRenderObj.printSize = "S";
+            } else if (document.getElementById("M").checked) {
+                frameRenderObj.printSize = "M";
+            } else if (document.getElementById("L").checked) {
+                frameRenderObj.printSize = "L";
+            } else {
+                frameRenderObj.printSize = "M";
+            }
+            // frameStyle
+            if (document.getElementById("classic").checked) {
+                frameRenderObj.frameStyle = "classic";
+            } else if (document.getElementById("natural").checked) {
+                frameRenderObj.frameStyle = "natural";
+            } else if (document.getElementById("shabby").checked) {
+                frameRenderObj.frameStyle = "shabby";
+            } else if (document.getElementById("elegant").checked) {
+                frameRenderObj.frameStyle = "elegant";
+            } else {
+                frameRenderObj.frameStyle = "natural";
+            }
+            // matColor
+            if (document.getElementById("ivory").checked) {
+                frameRenderObj.matColor = "ivory";
+            } else if (document.getElementById("mint").checked) {
+                frameRenderObj.matColor = "mint";
+            } else if (document.getElementById("wine").checked) {
+                frameRenderObj.matColor = "wine";
+            } else if (document.getElementById("indigo").checked) {
+                frameRenderObj.matColor = "indigo";
+            } else if (document.getElementById("coal").checked) {
+                frameRenderObj.matColor = "coal";
+            } else {
+                frameRenderObj.matColor = "mint";
+            }
+        }, 0);
+        renderObject();
+}
+
 
 export function onPageLoad() {
     connectSliderTextfield();
+    createEventListenersForRadioButtonGroups();
     const parts = window.location.href.split("?objectID=");
     if (parts.length > 1) {
         determineArtwork(parts[1]);
