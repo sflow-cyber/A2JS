@@ -123,14 +123,14 @@ export async function determineArtwork() {
     try {
         const response = await fetch(artWorkUrl, {method: 'GET'});
         const artworks = await response.json();
-        if (artworks.primaryImageSmall.length == 0) {
+        if (artworks.primaryImage.length == 0) {
             // redirect to search page
             // window.location.href = "search.html";
             console.log("redir to search page");
         }
         const img = document.getElementById("preview-image");
         img.style.visibility = "hidden";
-        img.src = artworks.primaryImageSmall;
+        img.src = artworks.primaryImage;
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
     } catch(e) {
