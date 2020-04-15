@@ -90,6 +90,7 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 
 export function renderObject() {
     render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
+    document.getElementById("preview-image").style.visibility = "visible";
 }
 
 /**
@@ -338,6 +339,16 @@ export function onPageLoad() {
     img.style.visibility = "hidden";
 
     function loaded() {
+        connectSliderTextfield();
+        createEventListenersForRadioButtonGroups();
+        const parts = window.location.href.split("?objectID=");
+        if (parts.length > 1) {
+            determineArtwork(parts[1]);
+            determinePrefSet(parts[1], false);
+           
+        } else {
+            window.location.href = "search.html";
+        }
         renderObject();
     }
     if (img.complete) {
@@ -349,18 +360,5 @@ export function onPageLoad() {
             window.location.href="search.html";
         });
     } 
-
-    connectSliderTextfield();
-    createEventListenersForRadioButtonGroups();
-    const parts = window.location.href.split("?objectID=");
-    if (parts.length > 1) {
-        determineArtwork(parts[1]);
-        determinePrefSet(parts[1], false);
-       
-    } else {
-        window.location.href = "search.html";
-    }
-
-    document.getElementById("preview-image").style.visibility = "visible";
     
 }
