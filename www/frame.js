@@ -144,7 +144,7 @@ export async function determineArtwork(objectID) {
  * 
  */
 
-export function connectSliderTextfield() {
+export function connectSliderTextfield(shouldRender) {
     const frameWidthTF = document.getElementById("frameWidth");
     const frameWidthSlid = document.getElementById("frameWidthR");
     const matTF = document.getElementById("matWidth");
@@ -153,13 +153,13 @@ export function connectSliderTextfield() {
     frameWidthSlid.oninput = function() {
         frameWidthTF.value = this.value;
         frameRenderObj.frameWidth = this.value;
-        renderObject();
+        if (shouldRender) renderObject();
     }
 
     matSlid.oninput = function() {
         matTF.value = this.value;
         frameRenderObj.matWidth = this.value;
-        renderObject();
+        if (shouldRender) renderObject();
     }
 
     frameWidthTF.oninput = function() {
@@ -171,7 +171,7 @@ export function connectSliderTextfield() {
         frameWidthSlid.value = tfVal;
         this.value = tfVal;
         frameRenderObj.frameWidth = tfVal;
-        renderObject();
+        if (shouldRender) renderObject();
     }
 
     matTF.oninput = function() {
@@ -183,7 +183,7 @@ export function connectSliderTextfield() {
         matSlid.value = tfVal;
         this.value = tfVal;
         frameRenderObj.matWidth = tfVal;
-        renderObject();
+        if (shouldRender) renderObject();
     }
 
     frameWidthTF.onkeypress = function(e) {
@@ -194,7 +194,7 @@ export function connectSliderTextfield() {
                 this.value = frameWidthSlid.value;
             }
             frameRenderObj.frameWidth = this.value;
-            renderObject();
+            if (shouldRender) renderObject();
         }
     } 
 
@@ -206,62 +206,62 @@ export function connectSliderTextfield() {
                 this.value = matSlid.value;
             }
             frameRenderObj.matWidth = this.value;
-            renderObject();
+            if (shouldRender) renderObject();
         }
     }
 }
 
 // ToDo: change this, there is a render object now
-export function determinePrefSet(objectID) {
+export function determinePrefSet(objectID, shouldRender) {
     const item = Cart.getItem(objectID);
     if (item != null) {
         if (item.printSize == 'S') {    
             document.getElementById("print-size-s").checked = true;
-            renderObject.printSize = 'S';
+            frameRenderObject.printSize = 'S';
         } else if (item.printSize == 'M') {
             document.getElementById("print-size-m").checked = true;
-            renderObject.printSize = 'M';
+            frameRenderObject.printSize = 'M';
         } else if (item.printSize == 'L') {
             document.getElementById("print-size-l").checked = true;
-            renderObject.printSize = 'L';
+            frameRenderObject.printSize = 'L';
         } else {
             document.getElementById("print-size-m").checked = true;
-            renderObject.printSize = 'M';
+            frameRenderObject.printSize = 'M';
         }
         if (item.frameStyle == "classic") {    
             document.getElementById("frame-style-classic").checked = true;
-            renderObject.frameStyle = "classic";
+            frameRenderObject.frameStyle = "classic";
         } else if (item.frameStyle == "natural") {
             document.getElementById("frame-style-natural").checked = true;
-            renderObject.frameStyle = "natural";
+            frameRenderObject.frameStyle = "natural";
         } else if (item.frameStyle == "shabby") {
             document.getElementById("frame-style-shabby").checked = true;
-            renderObject.frameStyle = "shabby";
+            frameRenderObject.frameStyle = "shabby";
         } else if (item.frameStyle == "elegant") {
             document.getElementById("frame-style-elegant").checked = true;
-            renderObject.frameStyle = "elegant";
+            frameRenderObject.frameStyle = "elegant";
         } else {
             document.getElementById("frame-style-natural").checked = true;
-            renderObject.frameStyle = "natural";
+            frameRenderObject.frameStyle = "natural";
         }
         if (item.matColor == "ivory") {    
             document.getElementById("mat-color-ivory").checked = true;
-            renderObject.matColor = "ivory";
+            frameRenderObject.matColor = "ivory";
         } else if (item.matColor == "mint") {
             document.getElementById("mat-color-mint").checked = true;
-            renderObject.matColor = "mint";
+            frameRenderObject.matColor = "mint";
         } else if (item.matColor == "wine") {
             document.getElementById("mat-color-wine").checked = true;
-            renderObject.matColor = "wine";
+            frameRenderObject.matColor = "wine";
         } else if (item.matColor == "indigo") {
             document.getElementById("mat-color-indigo").checked = true;
-            renderObject.matColor = "indigo";
+            frameRenderObject.matColor = "indigo";
         } else if (item.matColor == "coal") {
             document.getElementById("mat-color-coal").checked = true;
-            renderObject.matColor = "coal";
+            frameRenderObject.matColor = "coal";
         } else {
             document.getElementById("mat-color-mint").checked = true;
-            renderObject.matColor = "mint";
+            frameRenderObject.matColor = "mint";
         }
         const frameWidthTF = document.getElementById("frameWidth");
         const frameWidthSlid = document.getElementById("frameWidthR");
@@ -269,23 +269,23 @@ export function determinePrefSet(objectID) {
         const matSlid = document.getElementById("matWidthR");
         if (item.frameWidth != null) {
             if (item.frameWidth >= 2 && item.frameWidth <= 5) {
-               renderObject.frameWidth = item.frameWidth;  
+               frameRenderObject.frameWidth = item.frameWidth;  
             }
         }
         if (item.matWidth != null) {
             if (item.matWidth >= 0 && item.matWidth <= 10) {
-                renderObject.matWidth = item.matWidth;
+                frameRenderObject.matWidth = item.matWidth;
             }
         }
-        frameWidthTF.value = renderObject.frameWidth;
-        frameWidthSlid.value = renderObject.frameWidth;
-        matTF.value = renderObject.matWidth;
-        matSlid.value = renderObject.matWidth;
+        frameWidthTF.value = frameRenderObject.frameWidth;
+        frameWidthSlid.value = frameRenderObject.frameWidth;
+        matTF.value = frameRenderObject.matWidth;
+        matSlid.value = frameRenderObject.matWidth;
     }
-    renderObject();
+    if (shouldRender) renderObject();
 }
     
-export function createEventListenersForRadioButtonGroups() {
+export function createEventListenersForRadioButtonGroups(shouldRender) {
     const inputs = document.querySelectorAll("input[type=radio]");
     let x = inputs.length;
     while(x--)
@@ -326,19 +326,19 @@ export function createEventListenersForRadioButtonGroups() {
             } else {
                 frameRenderObj.matColor = "mint";
             }
-            console.log("rb-change");
-            renderObject();
+            if (shouldRender) renderObject();
         }, 0);       
 }
 
 
 export function onPageLoad() {
-    connectSliderTextfield();
-    createEventListenersForRadioButtonGroups();
+    connectSliderTextfield(false);
+    createEventListenersForRadioButtonGroups(false);
     const parts = window.location.href.split("?objectID=");
     if (parts.length > 1) {
         determineArtwork(parts[1]);
-        determinePrefSet(parts[1]);
+        determinePrefSet(parts[1], false);
+        renderObject();
     } else {
         window.location.href = "search.html";
     }
