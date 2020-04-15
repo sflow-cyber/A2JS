@@ -341,7 +341,7 @@ export function onPageLoad() {
         determineArtwork(parts[1]);
         determinePrefSet(parts[1], false);
         renderObject();
-        img.style.display = "initial";
+        img.style.display = "block";
     } else {
         window.location.href = "search.html";
     }
