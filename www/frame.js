@@ -178,7 +178,7 @@ export function connectSliderTextfield() {
         tfVal = Math.max(2, tfVal);
         frameWidthSlid.value = tfVal;
         this.value = tfVal;
-        frameRenderObj.cartItem.frameWidth = tfVal;
+        frameRenderObj.cartItem.frameWidth = tfVal * 10;
         renderObject();
     });
 
@@ -190,7 +190,7 @@ export function connectSliderTextfield() {
         tfVal = Math.max(0, tfVal);
         matSlid.value = tfVal;
         this.value = tfVal;
-        frameRenderObj.cartItem.matWidth = tfVal;
+        frameRenderObj.cartItem.matWidth = tfVal * 10;
         renderObject();
     });
 
