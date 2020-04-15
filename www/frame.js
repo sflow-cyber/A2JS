@@ -1,15 +1,17 @@
 import { CartItem } from './cart-item.js';
 import * as Cart from './cart.js';
 
-// ToDo: re-render object if any of the radio buttons is changed
 export var frameRenderObj = {
     img:document.getElementById("preview-image"), 
-    container:document.getElementById("preview-container"), 
-    printSize:'M', 
-    frameStyle:"natural", 
-    frameWidth:4.0, 
-    matColor:"mint", 
-    matWidth:5.5
+    container:document.getElementById("preview-container"),
+    cartItem: { 
+        objectID: null,
+        printSize:'M', 
+        frameStyle:"natural", 
+        frameWidth:40, 
+        matColor:"mint", 
+        matWidth:55
+    }
 };
 
 /**
@@ -89,7 +91,8 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 }
 
 export function renderObject() {
-    render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
+    render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.cartItem.printSize, frameRenderObj.cartItem.frameStyle, frameRenderObj.cartItem.frameWidth, frameRenderObj.cartItem.matColor, frameRenderObj.cartItem.matWidth);
+    document.getElementById("preview-image").style.visibility = "visible";
 }
 
 /**
@@ -114,22 +117,24 @@ export function calculatePrice(printSize, frameStyle, frameWidth, matWidth) {
  * page.
  *
  */
-export async function determineArtwork(objectID) {
-    const artWorkUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/" + objectID;
+export async function determineArtwork() {
+    const artWorkUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/" + frameRenderObj.cartItem.objectID;
     try {
         const response = await fetch(artWorkUrl, {method: 'GET'});
         const artworks = await response.json();
         if (artworks.primaryImageSmall.length == 0) {
             // redirect to search page
-            window.location.href = "search.html";
+            // window.location.href = "search.html";
+            console.log("redir to search page");
         }
         const img = document.getElementById("preview-image");
+        img.style.visibility = "hidden";
         img.src = artworks.primaryImageSmall;
-        console.log(artworks.artistDisplayName);
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
     } catch(e) {
-        window.location.href = "search.html";
+        // window.location.href = "search.html";
+        console.log("redir to search page");
     }
 }
 
@@ -152,19 +157,19 @@ export function connectSliderTextfield() {
     const matTF = document.getElementById("matWidth");
     const matSlid = document.getElementById("matWidthR");
 
-    frameWidthSlid.oninput = function() {
+    frameWidthSlid.addEventListener('input', () => {
         frameWidthTF.value = this.value;
-        frameRenderObj.frameWidth = this.value;
+        frameRenderObj.cartItem.frameWidth = this.value;
         renderObject();
-    }
+    });
 
-    matSlid.oninput = function() {
+    matSlid.addEventListener('input', () => {
         matTF.value = this.value;
-        frameRenderObj.matWidth = this.value;
+        frameRenderObj.cartItem.matWidth = this.value;
         renderObject();
-    }
+    });
 
-    frameWidthTF.oninput = function() {
+    frameWidthTF.addEventListener('input', () => {
         if (this.value.length == 0) return;
         if (isNaN(this.value)) return;
         let tfVal = parseFloat(parseInt(Math.round(this.value * 10))) / 10;
@@ -172,11 +177,11 @@ export function connectSliderTextfield() {
         tfVal = Math.max(2, tfVal);
         frameWidthSlid.value = tfVal;
         this.value = tfVal;
-        frameRenderObj.frameWidth = tfVal;
+        frameRenderObj.cartItem.frameWidth = tfVal;
         renderObject();
-    }
+    });
 
-    matTF.oninput = function() {
+    matTF.addEventListener('input', () => {
         if (this.value.length == 0) return;
         if (isNaN(this.value)) return;
         let tfVal = parseFloat(parseInt(Math.round(this.value * 10))) / 10;
@@ -184,11 +189,11 @@ export function connectSliderTextfield() {
         tfVal = Math.max(0, tfVal);
         matSlid.value = tfVal;
         this.value = tfVal;
-        frameRenderObj.matWidth = tfVal;
+        frameRenderObj.cartItem.matWidth = tfVal;
         renderObject();
-    }
+    });
 
-    frameWidthTF.onkeypress = function(e) {
+    frameWidthTF.addEventListener('keypress', e => {
         if (e.which === 13) {
             e.preventDefault();
             this.blur();
@@ -198,151 +203,169 @@ export function connectSliderTextfield() {
             frameRenderObj.frameWidth = this.value;
             renderObject();
         }
-    } 
+    }); 
 
-    matTF.onkeypress = function(e) {
+    matTF.addEventListener('keypress', e => {
         if (e.which === 13) {
             e.preventDefault();
             this.blur();
             if (this.value.length == 0) {
                 this.value = matSlid.value;
             }
-            frameRenderObj.matWidth = this.value;
+            frameRenderObj.cartItem.matWidth = this.value;
             renderObject();
         }
-    }
+    });
 }
 
-// ToDo: change this, there is a render object now
-export function determinePrefSet(objectID, shouldRender) {
-    const item = Cart.getItem(objectID);
-    if (item != null) {
-        if (item.printSize == 'S') {    
+export function determinePrefSet() {
+        if (frameRenderObject.cartItem.printSize == 'S') {    
             document.getElementById("print-size-s").checked = true;
-            frameRenderObject.printSize = 'S';
-        } else if (item.printSize == 'M') {
-            document.getElementById("print-size-m").checked = true;
-            frameRenderObject.printSize = 'M';
-        } else if (item.printSize == 'L') {
+        } else if (frameRenderObject.cartItem.printSize == 'L') {
             document.getElementById("print-size-l").checked = true;
-            frameRenderObject.printSize = 'L';
         } else {
             document.getElementById("print-size-m").checked = true;
-            frameRenderObject.printSize = 'M';
         }
-        if (item.frameStyle == "classic") {    
+        if (frameRenderObject.cartItem.frameStyle == "classic") {    
             document.getElementById("frame-style-classic").checked = true;
-            frameRenderObject.frameStyle = "classic";
-        } else if (item.frameStyle == "natural") {
-            document.getElementById("frame-style-natural").checked = true;
-            frameRenderObject.frameStyle = "natural";
-        } else if (item.frameStyle == "shabby") {
+        } else if (frameRenderObject.cartItem.frameStyle == "shabby") {
             document.getElementById("frame-style-shabby").checked = true;
-            frameRenderObject.frameStyle = "shabby";
-        } else if (item.frameStyle == "elegant") {
+        } else if (frameRenderObject.cartItem.frameStyle == "elegant") {
             document.getElementById("frame-style-elegant").checked = true;
-            frameRenderObject.frameStyle = "elegant";
         } else {
             document.getElementById("frame-style-natural").checked = true;
-            frameRenderObject.frameStyle = "natural";
         }
-        if (item.matColor == "ivory") {    
+        if (frameRenderObject.cartItem.matColor == "ivory") {    
             document.getElementById("mat-color-ivory").checked = true;
-            frameRenderObject.matColor = "ivory";
-        } else if (item.matColor == "mint") {
-            document.getElementById("mat-color-mint").checked = true;
-            frameRenderObject.matColor = "mint";
-        } else if (item.matColor == "wine") {
+        } else if (frameRenderObject.cartItem.matColor == "wine") {
             document.getElementById("mat-color-wine").checked = true;
-            frameRenderObject.matColor = "wine";
-        } else if (item.matColor == "indigo") {
+        } else if (frameRenderObject.cartItem.matColor == "indigo") {
             document.getElementById("mat-color-indigo").checked = true;
-            frameRenderObject.matColor = "indigo";
-        } else if (item.matColor == "coal") {
+        } else if (frameRenderObject.cartItem.matColor == "coal") {
             document.getElementById("mat-color-coal").checked = true;
-            frameRenderObject.matColor = "coal";
         } else {
             document.getElementById("mat-color-mint").checked = true;
-            frameRenderObject.matColor = "mint";
         }
         const frameWidthTF = document.getElementById("frameWidth");
         const frameWidthSlid = document.getElementById("frameWidthR");
         const matTF = document.getElementById("matWidth");
         const matSlid = document.getElementById("matWidthR");
-        if (item.frameWidth != null) {
-            if (item.frameWidth >= 2 && item.frameWidth <= 5) {
-               frameRenderObject.frameWidth = item.frameWidth;  
-            }
-        }
-        if (item.matWidth != null) {
-            if (item.matWidth >= 0 && item.matWidth <= 10) {
-                frameRenderObject.matWidth = item.matWidth;
-            }
-        }
-        frameWidthTF.value = frameRenderObject.frameWidth;
-        frameWidthSlid.value = frameRenderObject.frameWidth;
-        matTF.value = frameRenderObject.matWidth;
-        matSlid.value = frameRenderObject.matWidth;
-    }
-    // if (shouldRender) renderObject();
-}
+        frameWidthTF.value = frameRenderObject.cartItem.frameWidth / 10;
+        frameWidthSlid.value = frameRenderObject.cartItem.frameWidth / 10;
+        matTF.value = frameRenderObject.cartItem.matWidth / 10;
+        matSlid.value = frameRenderObject.cartItem.matWidth / 10;
+    
+} 
     
 export function createEventListenersForRadioButtonGroups() {
     const inputs = document.querySelectorAll("input[type=radio]");
     let x = inputs.length;
     while(x--)
-        inputs[x].addEventListener("change",function() {
+        inputs[x].addEventListener('change', () => {
             // printSize
             if (document.getElementById("print-size-s").checked) {
-                frameRenderObj.printSize = "S";
+                frameRenderObj.cartItem.printSize = "S";
             } else if (document.getElementById("print-size-m").checked) {
-                frameRenderObj.printSize = "M";
+                frameRenderObj.cartItem.printSize = "M";
             } else if (document.getElementById("print-size-l").checked) {
-                frameRenderObj.printSize = "L";
+                frameRenderObj.cartItem.printSize = "L";
             } else {
-                frameRenderObj.printSize = "M";
+                frameRenderObj.cartItem.printSize = "M";
             }
             // frameStyle
             if (document.getElementById("frame-style-classic").checked) {
-                frameRenderObj.frameStyle = "classic";
+                frameRenderObj.cartItem.frameStyle = "classic";
             } else if (document.getElementById("frame-style-natural").checked) {
-                frameRenderObj.frameStyle = "natural";
+                frameRenderObj.cartItem.frameStyle = "natural";
             } else if (document.getElementById("frame-style-shabby").checked) {
-                frameRenderObj.frameStyle = "shabby";
+                frameRenderObj.cartItem.frameStyle = "shabby";
             } else if (document.getElementById("frame-style-elegant").checked) {
-                frameRenderObj.frameStyle = "elegant";
+                frameRenderObj.cartItem.frameStyle = "elegant";
             } else {
-                frameRenderObj.frameStyle = "natural";
+                frameRenderObj.cartItem.frameStyle = "natural";
             }
             // matColor
             if (document.getElementById("mat-color-ivory").checked) {
-                frameRenderObj.matColor = "ivory";
+                frameRenderObj.cartItem.matColor = "ivory";
             } else if (document.getElementById("mat-color-mint").checked) {
-                frameRenderObj.matColor = "mint";
+                frameRenderObj.cartItem.matColor = "mint";
             } else if (document.getElementById("mat-color-wine").checked) {
-                frameRenderObj.matColor = "wine";
+                frameRenderObj.cartItem.matColor = "wine";
             } else if (document.getElementById("mat-color-indigo").checked) {
-                frameRenderObj.matColor = "indigo";
+                frameRenderObj.cartItem.matColor = "indigo";
             } else if (document.getElementById("mat-color-coal").checked) {
-                frameRenderObj.matColor = "coal";
+                frameRenderObj.cartItem.matColor = "coal";
             } else {
-                frameRenderObj.matColor = "mint";
+                frameRenderObj.cartItem.matColor = "mint";
             }
             renderObject();
         }, 0);       
 }
 
+export function updateFROjbect(str) {
+    console.log(str);
+    let what = "objectID=";
+    let i = str.indexOf(what);
+    if (i > -1) {
+        let j = str.indexOf("&", i);
+        frameRenderObj.cartItem.objectID = str.substring(i + what.length, j);
+    } else {
+        // window.location.href = "search.html";
+        console.log("redir to search page");
+    }
+    what = "printSize";
+    i = str.indexOf(what);
+    if (i > -1) {
+        let j = str.indexOf("&", i);
+        frameRenderObj.cartItem.printSize = str.substring(i + what.length, j);
+    } else {
+        frameRenderObj.cartItem.printSize = 'M';
+    }
+    what = "frameWidth";
+    i = str.indexOf(what);
+    if (i > -1) {
+        let j = str.indexOf("&", i);
+        frameRenderObj.cartItem.frameWidth = str.substring(i + what.length, j);
+    }else {
+        frameRenderObj.cartItem.frameWidth = 40;
+    }
+    what = "frameStyle";
+    i = str.indexOf(what);
+    if (i > -1) {
+        let j = str.indexOf("&", i);
+        frameRenderObj.cartItem.frameStyle = str.substring(i + what.length, j);
+    } else {
+        frameRenderObj.cartItem.frameStyle = "natural";
+    }
+    what = "matWidth";
+    i = str.indexOf(what);
+    if (i > -1) {
+        let j = str.indexOf("&", i);
+        frameRenderObj.cartItem.matWidth = str.substring(i + what.length, j);
+    } else {
+        frameRenderObj.cartItem.matWidth = 55;
+    }
+    what = "matColor";
+    i = str.indexOf(what);
+    if (i > -1) {
+        let j = str.indexOf("&", i);
+        frameRenderObj.cartItem.matColor = str.substring(i + what.length, j);
+    } else {
+        frameRenderObj.cartItem.matColor = "mint";
+    }
+}
 
 export function onPageLoad() {
     connectSliderTextfield();
     createEventListenersForRadioButtonGroups();
-    const parts = window.location.href.split("?objectID=");
+    const parts = window.location.href.split("?");
+    updateFROjbect(parts[1]);
     if (parts.length > 1) {
-        determineArtwork(parts[1]);
-        determinePrefSet(parts[1], false);
-        
+        determineArtwork();
+        // determinePrefSet();
+        renderObject();
     } else {
-        window.location.href = "search.html";
+        // window.location.href = "search.html";
+        console.log("redir to search page");
     }
-    renderObject();
 }
