@@ -350,12 +350,12 @@ export function onPageLoad() {
     }
 
     if (img.complete) {
-        loaded()
+        loaded();
     } else {
-        img.addEventListener('load', loaded)
+        img.addEventListener('load', loaded);
         img.addEventListener('error', function() {
             window.location.href="search.html";
-        })
+        });
     }
     
 }
