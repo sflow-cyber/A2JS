@@ -152,11 +152,11 @@ export function connectSliderTextfield() {
     const matTF = document.getElementById("matWidth");
     const matSlid = document.getElementById("matWidthR");
 
-    frameWidthSlid.oninput = function() {
+    frameWidthSlid.addEventListener('input', () => {
         frameWidthTF.value = this.value;
         frameRenderObj.frameWidth = this.value;
         renderObject();
-    }
+    });
 
     matSlid.oninput = function() {
         matTF.value = this.value;
@@ -340,9 +340,8 @@ export function onPageLoad() {
     if (parts.length > 1) {
         determineArtwork(parts[1]);
         determinePrefSet(parts[1], false);
-        
+        renderObject();
     } else {
         window.location.href = "search.html";
     }
-    renderObject();
 }
