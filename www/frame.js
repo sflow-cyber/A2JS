@@ -286,10 +286,11 @@ export function determinePrefSet(objectID) {
 }
     
 export function createEventListenersForRadioButtonGroups() {
-    var inputs=document.querySelectorAll("input[type=radio]"),
-    x=inputs.length;
+    const inputs = document.querySelectorAll("input[type=radio]");
+    let x = inputs.length;
     while(x--)
         inputs[x].addEventListener("change",function(){
+            console.log("rb-change");
             // printSize
             if (document.getElementById("S").checked) {
                 frameRenderObj.printSize = "S";
