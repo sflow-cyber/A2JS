@@ -282,7 +282,7 @@ export function determinePrefSet(objectID, shouldRender) {
         matTF.value = frameRenderObject.matWidth;
         matSlid.value = frameRenderObject.matWidth;
     }
-    if (shouldRender) renderObject();
+    // if (shouldRender) renderObject();
 }
     
 export function createEventListenersForRadioButtonGroups() {
@@ -335,7 +335,7 @@ export function onPageLoad() {
     const img = document.querySelector('#preview-image');
 
     function loaded() {
-        alert('loaded')
+        renderObject();
     }
 
     if (img.complete) {
@@ -343,7 +343,7 @@ export function onPageLoad() {
     } else {
         img.addEventListener('load', loaded)
         img.addEventListener('error', function() {
-            alert('error')
+            window.location.href="search.html";
         })
     }
     connectSliderTextfield();
