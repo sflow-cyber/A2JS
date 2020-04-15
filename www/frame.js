@@ -302,28 +302,28 @@ export function createEventListenersForRadioButtonGroups() {
 }
 
 export function updateFROjbect(str) {
-    getValFromStr(str, "objectID=", frameRenderObj.cartItem.objectID, -1);
+    frameRenderObj.cartItem.objectID = getValFromStr(str, "objectID=", -1);
     if (frameRenderObj.cartItem.objectID == -1) {
         // window.location.href = "search.html";
         alert("redir to search");
     }
-    getValFromStr(str, "printSize=", frameRenderObj.cartItem.printSize, 'M');
-    getValFromStr(str, "frameWidth=", frameRenderObj.cartItem.frameWidth, 40);
-    getValFromStr(str, "frameStyle=", frameRenderObj.cartItem.frameStyle, "natural");
-    getValFromStr(str, "matWidth=", frameRenderObj.cartItem.matWidth, 55);
-    getValFromStr(str, "matColor=", frameRenderObj.cartItem.matColor, "mint");
+    frameRenderObj.cartItem.printSize = getValFromStr(str, "printSize=", 'M');
+    frameRenderObj.cartItem.frameWidth = parseInt(getValFromStr(str, "frameWidth=", 40));
+    frameRenderObj.cartItem.frameStyle = getValFromStr(str, "frameStyle=", "natural");
+    frameRenderObj.cartItem.matWidth = parseInt(getValFromStr(str, "matWidth=", 55));
+    frameRenderObj.cartItem.matColor = getValFromStr(str, "matColor=", "mint");
 }
 
-export function getValFromStr(str, what, target, defaultVal) {
+export function getValFromStr(str, what, defaultVal) {
     let i = str.indexOf(what);
     if (i > -1) {
         let j = str.indexOf("&", i);
         if (j == -1) {
             j = str.length;
         }
-        target = str.substring(i + what.length, j);
+        return str.substring(i + what.length, j);
     } else {
-        target = defaultVal;
+        return defaultVal;
     }
 }
 
