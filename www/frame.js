@@ -339,6 +339,7 @@ export function onPageLoad() {
         createEventListenersForRadioButtonGroups();
         const parts = window.location.href.split("?objectID=");
         if (parts.length > 1) {
+            renderObject();
             determineArtwork(parts[1]);
             determinePrefSet(parts[1], false);
             renderObject();
