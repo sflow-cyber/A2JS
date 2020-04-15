@@ -124,7 +124,8 @@ export async function determineArtwork() {
         const artworks = await response.json();
         if (artworks.primaryImageSmall.length == 0) {
             // redirect to search page
-            window.location.href = "search.html";
+            // window.location.href = "search.html";
+            console.log("redir to search page");
         }
         const img = document.getElementById("preview-image");
         img.style.visibility = "hidden";
@@ -132,7 +133,8 @@ export async function determineArtwork() {
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
     } catch(e) {
-        window.location.href = "search.html";
+        // window.location.href = "search.html";
+        console.log("redir to search page");
     }
 }
 
@@ -308,7 +310,8 @@ export function updateFROjbect(str) {
         let j = str.indexOf("&", i);
         frameRenderObj.cartItem.objectID = str.substring(i + what.length, j);
     } else {
-        window.location.href = "search.html";
+        // window.location.href = "search.html";
+        console.log("redir to search page");
     }
     what = "printSize";
     i = str.indexOf(what);
@@ -362,6 +365,7 @@ export function onPageLoad() {
         // determinePrefSet();
         renderObject();
     } else {
-        window.location.href = "search.html";
+        // window.location.href = "search.html";
+        console.log("redir to search page");
     }
 }
