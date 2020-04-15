@@ -132,7 +132,11 @@ export async function determineArtwork() {
             window.location.href = "search.html";
         }
         const img = document.getElementById("preview-image");
-        img.onload = function() { renderObject(); }
+        img.style.visibility = "hidden";
+        img.onload = function() { 
+            renderObject(); 
+            img.style.visibility = "visible";
+        }
         img.src = artworks.primaryImage;
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
