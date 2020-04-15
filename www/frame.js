@@ -90,7 +90,6 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 
 export function renderObject() {
     render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
-    document.getElementById("preview-image").style.visibility = "visible";
 }
 
 /**
@@ -363,6 +362,6 @@ export function onPageLoad() {
         window.location.href = "search.html";
     }
 
-    
+    document.getElementById("preview-image").style.visibility = "visible";
     
 }
