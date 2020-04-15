@@ -349,6 +349,7 @@ export function onPageLoad() {
         }
     
         if (img.complete) {
+            console.log("img complete");
             loaded();
         } else {
             img.addEventListener('load', loaded);
