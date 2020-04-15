@@ -90,7 +90,7 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 
 export function renderObject() {
     render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
-    document.querySelector('#preview-image').style.display = "inline-block";
+    // document.querySelector('#preview-image').style.display = "inline-block";
 }
 
 /**
@@ -343,11 +343,11 @@ export function onPageLoad() {
     if (parts.length > 1) {
         determineArtwork(parts[1]);
         determinePrefSet(parts[1], false);
-        function loaded() {
+        // function loaded() {
             // img.style.display = "inline-block";
-            renderObject();
-        }
-    
+        renderObject();
+        // }
+    /*
         if (img.complete) {
             console.log("img complete");
             loaded();
@@ -356,7 +356,7 @@ export function onPageLoad() {
             img.addEventListener('error', function() {
                 window.location.href="search.html";
             });
-        } 
+        } */
     } else {
         window.location.href = "search.html";
     }
