@@ -292,37 +292,37 @@ export function createEventListenersForRadioButtonGroups() {
         inputs[x].addEventListener("change",function(){
             console.log("rb-change");
             // printSize
-            if (document.getElementById("S").checked) {
+            if (document.getElementById("print-size-s").checked) {
                 frameRenderObj.printSize = "S";
-            } else if (document.getElementById("M").checked) {
+            } else if (document.getElementById("print-size-m").checked) {
                 frameRenderObj.printSize = "M";
-            } else if (document.getElementById("L").checked) {
+            } else if (document.getElementById("print-size-l").checked) {
                 frameRenderObj.printSize = "L";
             } else {
                 frameRenderObj.printSize = "M";
             }
             // frameStyle
-            if (document.getElementById("classic").checked) {
+            if (document.getElementById("frame-style-classic").checked) {
                 frameRenderObj.frameStyle = "classic";
-            } else if (document.getElementById("natural").checked) {
+            } else if (document.getElementById("frame-style-natural").checked) {
                 frameRenderObj.frameStyle = "natural";
-            } else if (document.getElementById("shabby").checked) {
+            } else if (document.getElementById("frame-style-shabby").checked) {
                 frameRenderObj.frameStyle = "shabby";
-            } else if (document.getElementById("elegant").checked) {
+            } else if (document.getElementById("frame-style-elegant").checked) {
                 frameRenderObj.frameStyle = "elegant";
             } else {
                 frameRenderObj.frameStyle = "natural";
             }
             // matColor
-            if (document.getElementById("ivory").checked) {
+            if (document.getElementById("mat-color-ivory").checked) {
                 frameRenderObj.matColor = "ivory";
-            } else if (document.getElementById("mint").checked) {
+            } else if (document.getElementById("mat-color-mint").checked) {
                 frameRenderObj.matColor = "mint";
-            } else if (document.getElementById("wine").checked) {
+            } else if (document.getElementById("mat-color-wine").checked) {
                 frameRenderObj.matColor = "wine";
-            } else if (document.getElementById("indigo").checked) {
+            } else if (document.getElementById("mat-color-indigo").checked) {
                 frameRenderObj.matColor = "indigo";
-            } else if (document.getElementById("coal").checked) {
+            } else if (document.getElementById("mat-color-coal").checked) {
                 frameRenderObj.matColor = "coal";
             } else {
                 frameRenderObj.matColor = "mint";
