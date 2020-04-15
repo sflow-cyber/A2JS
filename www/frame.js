@@ -167,12 +167,14 @@ export function connectSliderTextfield() {
         frameWidthTF.value = this.value;
         frameRenderObj.cartItem.frameWidth = this.value * 10;
         renderObject();
+        exportNewUrl()
     });
 
     matSlid.addEventListener('input', function() {
         matTF.value = this.value;
         frameRenderObj.cartItem.matWidth = this.value * 10;
         renderObject();
+        exportNewUrl()
     });
 
     frameWidthTF.addEventListener('input', function() {
@@ -185,6 +187,7 @@ export function connectSliderTextfield() {
         this.value = tfVal;
         frameRenderObj.cartItem.frameWidth = tfVal * 10;
         renderObject();
+        exportNewUrl()
     });
 
     matTF.addEventListener('input', function() {
@@ -197,6 +200,7 @@ export function connectSliderTextfield() {
         this.value = tfVal;
         frameRenderObj.cartItem.matWidth = tfVal * 10;
         renderObject();
+        exportNewUrl()
     });
 
     frameWidthTF.addEventListener('keypress', function(e) {
@@ -208,6 +212,7 @@ export function connectSliderTextfield() {
             }
             frameRenderObj.frameWidth = this.value;
             renderObject();
+            exportNewUrl()
         }
     }); 
 
@@ -220,8 +225,19 @@ export function connectSliderTextfield() {
             }
             frameRenderObj.cartItem.matWidth = this.value;
             renderObject();
+            exportNewUrl()
         }
     });
+}
+
+export function exportNewUrl() {
+    let newUrl = `config.html?objectID=${frameRenderObj.cartItem.objectID}&`;
+    newUrl += `printSize=${frameRenderObj.cartItem.printSize}&`;
+    newUrl += `frameWidth=${frameRenderObj.cartItem.frameWidth}&`;
+    newUrl += `frameStyle=${frameRenderObj.cartItem.frameStyle}&`;
+    newUrl += `matWidth=${frameRenderObj.cartItem.matWidth}&`;
+    newUrl += `matColor=${frameRenderObj.cartItem.matColor}`;
+    window.history.pushState(null, null, newUrl);
 }
 
 export function determinePrefSet() {
@@ -304,6 +320,7 @@ export function createEventListenersForRadioButtonGroups() {
                 frameRenderObj.cartItem.matColor = "mint";
             }
             renderObject();
+            exportNewUrl()
         }, 0);       
 }
 
@@ -336,7 +353,6 @@ export function onPageLoad() {
     connectSliderTextfield();
     createEventListenersForRadioButtonGroups();
     const parts = window.location.href.split("?");
-    window.history.pushState(null, null, "config.html");
     updateFROjbect(parts[1]);
     if (parts.length > 1) {
         determinePrefSet();
