@@ -123,9 +123,17 @@ export async function determineArtwork(objectID) {
             // redirect to search page
             window.location.href = "search.html";
         }
-        const img = document.getElementById("preview-image");
+        const img = new Image();
+        const x = document.getElementById("preview-image");
+        
+        img.onload = function() {
+            x.src = img.src;
+        };
+        
         img.src = artworks.primaryImageSmall;
-        console.log(artworks.artistDisplayName);
+        
+        // img.src = artworks.primaryImageSmall;
+        loadImage();
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
     } catch(e) {
