@@ -129,6 +129,7 @@ export async function determineArtwork() {
         }
         const img = document.getElementById("preview-image");
         // img.style.visibility = "hidden";
+        img.onload = function() { renderObject(); }
         img.src = artworks.primaryImage;
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
@@ -333,9 +334,9 @@ export function onPageLoad() {
     const parts = window.location.href.split("?");
     updateFROjbect(parts[1]);
     if (parts.length > 1) {
-        determineArtwork();
         determinePrefSet();
-        renderObject();
+        determineArtwork();
+        // renderObject();
     } else {
         // window.location.href = "search.html";
         alert("redir to search");
