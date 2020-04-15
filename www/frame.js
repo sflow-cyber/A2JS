@@ -302,14 +302,14 @@ export function createEventListenersForRadioButtonGroups() {
 }
 
 export function updateFROjbect(str) {
-    console.log(str);
+    alert(str);
     let what = "objectID=";
     let i = str.indexOf(what);
     if (i > -1) {
         let j = str.indexOf("&", i);
         frameRenderObj.cartItem.objectID = str.substring(i + what.length, j);
     } else {
-        window.location.href = "search.html";
+        // window.location.href = "search.html";
     }
     what = "printSize";
     i = str.indexOf(what);
