@@ -123,12 +123,12 @@ export async function determineArtwork() {
     try {
         const response = await fetch(artWorkUrl, {method: 'GET'});
         const artworks = await response.json();
-        if (artworks.primaryImage.length == 0) {
+        if (artworks.primaryImageSmall.length == 0) {
             window.location.href = "search.html";
         }
         const img = document.getElementById("preview-image");
         img.style.visibility = "hidden";
-        img.src = artworks.primaryImage;
+        img.src = artworks.primaryImageSmall;
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
     } catch(e) {
