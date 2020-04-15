@@ -3,6 +3,7 @@ import * as Cart from './cart.js';
 
 // ToDo: re-render object if any of the radio buttons is changed
 export var frameRenderObj = {
+    imgSource:null,
     img:document.getElementById("preview-image"), 
     container:document.getElementById("preview-container"), 
     printSize:'M', 
@@ -89,8 +90,11 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 }
 
 export function renderObject() {
+    const imgRef = document.getElementById("preview-image");
+    imgRef.style.display = "none";
+    imgRef.src = frameRenderObj.imgSource;
     render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.printSize, frameRenderObj.frameStyle, frameRenderObj.frameWidth, frameRenderObj.matColor, frameRenderObj.matWidth);
-    // document.getElementById("preview-image").style.display = "initial";
+    imgRef.style.display = "initial";   
 }
 
 /**
@@ -124,9 +128,7 @@ export async function determineArtwork(objectID) {
             // redirect to search page
             window.location.href = "search.html";
         }
-        const imgRef = document.getElementById("preview-image");
-        imgRef.style.display = "none";
-        imgRef.src = artworks.primaryImageSmall;
+        frameRenderObj.imgSource = artworks.primaryImageSmall;
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
     } catch(e) {
