@@ -335,7 +335,16 @@ export function onPageLoad() {
     const img = document.querySelector('#preview-image');
 
     function loaded() {
-        renderObject();
+        connectSliderTextfield();
+        createEventListenersForRadioButtonGroups();
+        const parts = window.location.href.split("?objectID=");
+        if (parts.length > 1) {
+            determineArtwork(parts[1]);
+            determinePrefSet(parts[1], false);
+            renderObject();
+        } else {
+            window.location.href = "search.html";
+        }
     }
 
     if (img.complete) {
@@ -346,14 +355,5 @@ export function onPageLoad() {
             window.location.href="search.html";
         })
     }
-    connectSliderTextfield();
-    createEventListenersForRadioButtonGroups();
-    const parts = window.location.href.split("?objectID=");
-    if (parts.length > 1) {
-        determineArtwork(parts[1]);
-        determinePrefSet(parts[1], false);
-        renderObject();
-    } else {
-        window.location.href = "search.html";
-    }
+    
 }
