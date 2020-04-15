@@ -160,13 +160,13 @@ export function connectSliderTextfield() {
 
     frameWidthSlid.addEventListener('input', function() {
         frameWidthTF.value = this.value;
-        frameRenderObj.cartItem.frameWidth = this.value;
+        frameRenderObj.cartItem.frameWidth = this.value * 10;
         renderObject();
     });
 
     matSlid.addEventListener('input', function() {
         matTF.value = this.value;
-        frameRenderObj.cartItem.matWidth = this.value;
+        frameRenderObj.cartItem.matWidth = this.value * 10;
         renderObject();
     });
 
