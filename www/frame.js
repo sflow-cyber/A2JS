@@ -123,7 +123,8 @@ export async function determineArtwork() {
         const response = await fetch(artWorkUrl, {method: 'GET'});
         const artworks = await response.json();
         if (artworks.primaryImage.length == 0) {
-            window.location.href = "search.html";
+            // window.location.href = "search.html";
+            alert("redir to search");
         }
         const img = document.getElementById("preview-image");
         // img.style.visibility = "hidden";
@@ -131,7 +132,8 @@ export async function determineArtwork() {
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
     } catch(e) {
-        window.location.href = "search.html";
+        // window.location.href = "search.html";
+        alert("redir to search");
     }
 }
 
@@ -301,7 +303,8 @@ export function createEventListenersForRadioButtonGroups() {
 export function updateFROjbect(str) {
     getValFromStr(str, "objectID=", frameRenderObj.cartItem.objectID, -1);
     if (frameRenderObj.cartItem.objectID == -1) {
-        window.location.href = "search.html";
+        // window.location.href = "search.html";
+        alert("redir to search");
     }
     getValFromStr(str, "printSize=", frameRenderObj.cartItem.printSize, 'M');
     getValFromStr(str, "frameWidth=", frameRenderObj.cartItem.frameWidth, 40);
@@ -333,6 +336,7 @@ export function onPageLoad() {
         determinePrefSet();
         renderObject();
     } else {
-        window.location.href = "search.html";
+        // window.location.href = "search.html";
+        alert("redir to search");
     }
 }
