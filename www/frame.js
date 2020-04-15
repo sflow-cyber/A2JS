@@ -142,7 +142,6 @@ export async function determineArtwork() {
         document.getElementById("image-label").innerHTML = info;
     } catch(e) {
         window.location.href = "search.html";
-        
     }
 }
 
@@ -158,7 +157,6 @@ export async function determineArtwork() {
  * 10 mm steps.
  * 
  */
-
 export function connectSliderTextfield() {
     const frameWidthTF = document.getElementById("frameWidth");
     const frameWidthSlid = document.getElementById("frameWidthR");
@@ -338,6 +336,7 @@ export function onPageLoad() {
     connectSliderTextfield();
     createEventListenersForRadioButtonGroups();
     const parts = window.location.href.split("?");
+    window.history.pushState(null, null, config.html);
     updateFROjbect(parts[1]);
     if (parts.length > 1) {
         determinePrefSet();
