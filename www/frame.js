@@ -157,19 +157,19 @@ export function connectSliderTextfield() {
     const matTF = document.getElementById("matWidth");
     const matSlid = document.getElementById("matWidthR");
 
-    frameWidthSlid.addEventListener('input', () => {
+    frameWidthSlid.addEventListener('input', function() {
         frameWidthTF.value = this.value;
         frameRenderObj.cartItem.frameWidth = this.value;
         renderObject();
     });
 
-    matSlid.addEventListener('input', () => {
+    matSlid.addEventListener('input', function() {
         matTF.value = this.value;
         frameRenderObj.cartItem.matWidth = this.value;
         renderObject();
     });
 
-    frameWidthTF.addEventListener('input', () => {
+    frameWidthTF.addEventListener('input', function() {
         if (this.value.length == 0) return;
         if (isNaN(this.value)) return;
         let tfVal = parseFloat(parseInt(Math.round(this.value * 10))) / 10;
@@ -181,7 +181,7 @@ export function connectSliderTextfield() {
         renderObject();
     });
 
-    matTF.addEventListener('input', () => {
+    matTF.addEventListener('input', function() {
         if (this.value.length == 0) return;
         if (isNaN(this.value)) return;
         let tfVal = parseFloat(parseInt(Math.round(this.value * 10))) / 10;
@@ -193,7 +193,7 @@ export function connectSliderTextfield() {
         renderObject();
     });
 
-    frameWidthTF.addEventListener('keypress', e => {
+    frameWidthTF.addEventListener('keypress', function(e) {
         if (e.which === 13) {
             e.preventDefault();
             this.blur();
@@ -205,7 +205,7 @@ export function connectSliderTextfield() {
         }
     }); 
 
-    matTF.addEventListener('keypress', e => {
+    matTF.addEventListener('keypress', function(e) {
         if (e.which === 13) {
             e.preventDefault();
             this.blur();
