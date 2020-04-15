@@ -92,7 +92,7 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 
 export function renderObject() {
     render(frameRenderObj.img, frameRenderObj.container, frameRenderObj.cartItem.printSize, frameRenderObj.cartItem.frameStyle, frameRenderObj.cartItem.frameWidth, frameRenderObj.cartItem.matColor, frameRenderObj.cartItem.matWidth);
-    document.getElementById("preview-image").style.visibility = "visible";
+    // document.getElementById("preview-image").style.visibility = "visible";
 }
 
 /**
@@ -127,7 +127,7 @@ export async function determineArtwork() {
             window.location.href = "search.html";
         }
         const img = document.getElementById("preview-image");
-        img.style.visibility = "hidden";
+        // img.style.visibility = "hidden";
         img.src = artworks.primaryImage;
         const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
         document.getElementById("image-label").innerHTML = info;
