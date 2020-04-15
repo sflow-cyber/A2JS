@@ -3,7 +3,6 @@ import * as Cart from './cart.js';
 
 // ToDo: re-render object if any of the radio buttons is changed
 export var frameRenderObj = {
-    imgSource:null,
     img:document.getElementById("preview-image"), 
     container:document.getElementById("preview-container"), 
     printSize:'M', 
