@@ -325,7 +325,7 @@ export function updateFROjbect(str) {
             j = str.length;
         }
         frameRenderObj.cartItem.printSize = str.substring(i + what.length, j);
-        console.log("printSize" + frameRenderObj.cartItem.printSize);
+        console.log("printSize: " + frameRenderObj.cartItem.printSize);
     } else {
         frameRenderObj.cartItem.printSize = 'M';
     }
@@ -337,7 +337,7 @@ export function updateFROjbect(str) {
             j = str.length;
         }
         frameRenderObj.cartItem.frameWidth = parseFloat(str.substring(i + what.length, j));
-        console.log("frameWidth" + frameRenderObj.cartItem.frameWidth);
+        console.log("frameWidth: " + frameRenderObj.cartItem.frameWidth);
     }else { 
         frameRenderObj.cartItem.frameWidth = 40;
     }
@@ -349,7 +349,7 @@ export function updateFROjbect(str) {
             j = str.length;
         }
         frameRenderObj.cartItem.frameStyle = str.substring(i + what.length, j);
-        console.log("frameStyle" + frameRenderObj.cartItem.frameStyle);
+        console.log("frameStyle: " + frameRenderObj.cartItem.frameStyle);
     } else {
         frameRenderObj.cartItem.frameStyle = "natural";
     }
@@ -361,7 +361,7 @@ export function updateFROjbect(str) {
             j = str.length;
         }
         frameRenderObj.cartItem.matWidth = parseFloat(str.substring(i + what.length, j));
-        console.log("matWidth" + frameRenderObj.cartItem.matWidth);
+        console.log("matWidth: " + frameRenderObj.cartItem.matWidth);
     } else {
         frameRenderObj.cartItem.matWidth = 55;
     }
@@ -373,7 +373,7 @@ export function updateFROjbect(str) {
             j = str.length;
         }
         frameRenderObj.cartItem.matColor = str.substring(i + what.length, j);
-        console.log("matColor" + frameRenderObj.cartItem.matColor);
+        console.log("matColor: " + frameRenderObj.cartItem.matColor);
     } else {
         frameRenderObj.cartItem.matColor = "mint";
     }
