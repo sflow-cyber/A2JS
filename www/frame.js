@@ -304,7 +304,6 @@ export function createEventListenersForRadioButtonGroups() {
 }
 
 export function updateFROjbect(str) {
-    console.log(str);
     let what = "objectID=";
     let i = str.indexOf(what);
     if (i > -1) {
@@ -313,7 +312,7 @@ export function updateFROjbect(str) {
             j = str.length;
         }
         frameRenderObj.cartItem.objectID = str.substring(i + what.length, j);
-        console.log("i ; j" + i + " ; " + j);
+        console.log("objectID: " + frameRenderObj.cartItem.objectID);
     } else {
         // window.location.href = "search.html";
         console.log("redir to search page");
@@ -326,6 +325,7 @@ export function updateFROjbect(str) {
             j = str.length;
         }
         frameRenderObj.cartItem.printSize = str.substring(i + what.length, j);
+        console.log("printSize" + frameRenderObj.cartItem.printSize);
     } else {
         frameRenderObj.cartItem.printSize = 'M';
     }
@@ -336,8 +336,9 @@ export function updateFROjbect(str) {
         if (j == -1) {
             j = str.length;
         }
-        frameRenderObj.cartItem.frameWidth = str.substring(i + what.length, j);
-    }else {
+        frameRenderObj.cartItem.frameWidth = parseFloat(str.substring(i + what.length, j));
+        console.log("frameWidth" + frameRenderObj.cartItem.frameWidth);
+    }else { 
         frameRenderObj.cartItem.frameWidth = 40;
     }
     what = "frameStyle";
@@ -348,6 +349,7 @@ export function updateFROjbect(str) {
             j = str.length;
         }
         frameRenderObj.cartItem.frameStyle = str.substring(i + what.length, j);
+        console.log("frameStyle" + frameRenderObj.cartItem.frameStyle);
     } else {
         frameRenderObj.cartItem.frameStyle = "natural";
     }
@@ -358,7 +360,8 @@ export function updateFROjbect(str) {
         if (j == -1) {
             j = str.length;
         }
-        frameRenderObj.cartItem.matWidth = str.substring(i + what.length, j);
+        frameRenderObj.cartItem.matWidth = parseFloat(str.substring(i + what.length, j));
+        console.log("matWidth" + frameRenderObj.cartItem.matWidth);
     } else {
         frameRenderObj.cartItem.matWidth = 55;
     }
@@ -370,6 +373,7 @@ export function updateFROjbect(str) {
             j = str.length;
         }
         frameRenderObj.cartItem.matColor = str.substring(i + what.length, j);
+        console.log("matColor" + frameRenderObj.cartItem.matColor);
     } else {
         frameRenderObj.cartItem.matColor = "mint";
     }
