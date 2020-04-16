@@ -133,6 +133,7 @@ export async function determineArtwork() {
     if (typeof(response) == undefined || typeof(artworks) == undefined) {
         window.location.href = "search.html";
     }
+    console.log(artworks);
     if (artworks.primaryImage.length == 0) {
         window.location.href = "search.html";
     }
