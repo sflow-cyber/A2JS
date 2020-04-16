@@ -1,6 +1,9 @@
 import { CartItem } from './cart-item.js';
 import * as Cart from './cart.js';
 
+export var imgHeight;
+export var imgWidth;
+
 export var frameRenderObj = {
     img:document.getElementById("preview-image"), 
     container:document.getElementById("preview-container"),
@@ -91,6 +94,8 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 }
 
 export function renderObject() {
+    img.height = imgHeight;
+    img.width = imgWidth;
     render(frameRenderObj.img, 
         frameRenderObj.container, 
         frameRenderObj.cartItem.printSize, 
@@ -145,6 +150,8 @@ export async function determineArtwork() {
         img.style.visibility = "visible";
     }
     img.src = artworks.primaryImage;
+    imgHeight = img.height;
+    imgWidth = img.width;
     let info = "";
     if (typeof(artworks) != undefined) {
         if (typeof(artworks.artistDisplayName) != undefined && artworks.artistDisplayName.length > 0) {
