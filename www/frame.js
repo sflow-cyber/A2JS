@@ -330,7 +330,7 @@ export function updateFROjbect(str) {
         window.location.href = "search.html";
     }
     frameRenderObj.cartItem.printSize = getValFromStr(str, "printSize=", 'M');
-    if (frameRenderObj.cartItem.printSize != 'S' && frameRenderObj.cartItem.printSize != L) {
+    if (frameRenderObj.cartItem.printSize != 'S' && frameRenderObj.cartItem.printSize != 'L') {
         frameRenderObj.cartItem.printSize = 'M';
     }
     frameRenderObj.cartItem.frameWidth = parseInt(getValFromStr(str, "frameWidth=", 40));
