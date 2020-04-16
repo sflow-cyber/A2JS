@@ -147,16 +147,16 @@ export async function determineArtwork() {
     img.src = artworks.primaryImage;
     let info = "";
     if (typeof(artworks) != undefined) {
-        if (typeof(artworks.artistDisplayName) != undefined) {
+        if (typeof(artworks.artistDisplayName) != undefined && artworks.artistDisplayName.length > 0) {
             info += `<b>${artworks.artistDisplayName}</b><br>`;
         }
-        if (typeof(artworks.title) != undefined) {
+        if (typeof(artworks.title) != undefined && artworks.title.length > 0) {
             info += `<i>${artworks.title}</i>`;
         } 
-        if (typeof(artworks.title) != undefined && typeof(artworks.accessionYear) != undefined) {
+        if (typeof(artworks.title) != undefined && artworks.title.length > 0 && typeof(artworks.accessionYear) != undefined && artworks.accessionYear.length > 0) {
             info += ", ";
         }
-        if (typeof(artworks.accessionYear) != undefined) {
+        if (typeof(artworks.accessionYear && artworks.accessionYear.length > 0) != undefined) {
             info += `${artworks.accessionYear}`;
         }
     } 
