@@ -12,7 +12,7 @@
     import * as Cart from './cart.js';
 
     // test with two items:
-    if (Cart.getAmount() < 1) {
+    if (Cart.getItems().length < 1) {
       Cart.add(new CartItem(11111, 'M', "elegant", 26, "wine", 67));
       Cart.add(new CartItem(11129, 'L', "natural", 30, "indigo", 86));
     }
