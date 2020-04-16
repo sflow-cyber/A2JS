@@ -94,8 +94,8 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 }
 
 export function renderObject() {
-    frameRenderObj.img.height = imgHeight;
-    frameRenderObj.img.width = imgWidth;
+    frameRenderObj.img.height = imgHeight;  // when scaling the frame and mat widths a lot, img size is slowly but steadily reduced due to integer
+    frameRenderObj.img.width = imgWidth;    // truncating - setting h and w back to original values prevents unintended scaling during the render process
     render(frameRenderObj.img, 
         frameRenderObj.container, 
         frameRenderObj.cartItem.printSize, 
@@ -179,7 +179,7 @@ export async function determineArtwork() {
  * Ensure that only valid values can be entered for 
  * frame and mat width. The frame width can range from 
  * 2–5 cm and the mat width from 0–10 cm, both with 
- * 10 mm steps.
+ * 1 mm steps.
  * 
  */
 export function connectSliderTextfield() {
@@ -255,6 +255,9 @@ export function connectSliderTextfield() {
     });
 }
 
+/**
+ * Generate new url according to set values in render object
+ */
 export function exportNewUrl() {
     let newUrl = `config.html?objectID=${frameRenderObj.cartItem.objectID}&`;
     newUrl += `printSize=${frameRenderObj.cartItem.printSize}&`;
@@ -265,6 +268,9 @@ export function exportNewUrl() {
     window.history.pushState(null, null, newUrl);
 }
 
+/**
+ * Set controls intially according to url parameters when page is loaded 
+ */
 export function determinePrefSet() {
         if (frameRenderObj.cartItem.printSize == 'S') {    
             document.getElementById("print-size-s").checked = true;
@@ -303,6 +309,9 @@ export function determinePrefSet() {
         matSlid.value = frameRenderObj.cartItem.matWidth / 10;
 } 
     
+/**
+ * Event listeners for radio button groups
+ */
 export function createEventListenersForRadioButtonGroups() {
     const inputs = document.querySelectorAll("input[type=radio]");
     let x = inputs.length;
@@ -311,8 +320,6 @@ export function createEventListenersForRadioButtonGroups() {
             // printSize
             if (document.getElementById("print-size-s").checked) {
                 frameRenderObj.cartItem.printSize = "S";
-            } else if (document.getElementById("print-size-m").checked) {
-                frameRenderObj.cartItem.printSize = "M";
             } else if (document.getElementById("print-size-l").checked) {
                 frameRenderObj.cartItem.printSize = "L";
             } else {
@@ -321,8 +328,6 @@ export function createEventListenersForRadioButtonGroups() {
             // frameStyle
             if (document.getElementById("frame-style-classic").checked) {
                 frameRenderObj.cartItem.frameStyle = "classic";
-            } else if (document.getElementById("frame-style-natural").checked) {
-                frameRenderObj.cartItem.frameStyle = "natural";
             } else if (document.getElementById("frame-style-shabby").checked) {
                 frameRenderObj.cartItem.frameStyle = "shabby";
             } else if (document.getElementById("frame-style-elegant").checked) {
@@ -333,8 +338,6 @@ export function createEventListenersForRadioButtonGroups() {
             // matColor
             if (document.getElementById("mat-color-ivory").checked) {
                 frameRenderObj.cartItem.matColor = "ivory";
-            } else if (document.getElementById("mat-color-mint").checked) {
-                frameRenderObj.cartItem.matColor = "mint";
             } else if (document.getElementById("mat-color-wine").checked) {
                 frameRenderObj.cartItem.matColor = "wine";
             } else if (document.getElementById("mat-color-indigo").checked) {
@@ -348,6 +351,16 @@ export function createEventListenersForRadioButtonGroups() {
             exportNewUrl()
         }, 0);       
 }
+
+/**
+ *  Update frame render object according to url substring
+ *  @param {*} str string containing url parameters 
+ *  
+ *  Ensure that only valid values can be entered for 
+ *  frame and mat width. The frame width can range from 
+ *  2–5 cm and the mat width from 0–10 cm, both with 
+ *  1 mm steps.
+ */
 
 export function updateFROjbect(str) {
     frameRenderObj.cartItem.objectID = parseInt(getValFromStr(str, "objectID=", -1));
@@ -379,6 +392,13 @@ export function updateFROjbect(str) {
     exportNewUrl();
 }
 
+/**
+ * get specific parameter from url parameter substring
+ * 
+ * @param {*} str url parameter substring --> everything after ?
+ * @param {*} what the url parameter name
+ * @param {*} defaultVal the default value if parameter is not found or has no value
+ */
 export function getValFromStr(str, what, defaultVal) {
     let i = str.indexOf(what);
     if (i > -1) {
@@ -386,12 +406,17 @@ export function getValFromStr(str, what, defaultVal) {
         if (j == -1) {
             j = str.length;
         }
-        return str.substring(i + what.length, j);
-    } else {
-        return defaultVal;
-    }
+        if (j - i > 0) {
+            return str.substring(i + what.length, j);
+        }
+    } 
+    return defaultVal;
+    
 }
 
+/**
+ * function that is called on page load
+ */
 export function onPageLoad() {
     connectSliderTextfield();
     createEventListenersForRadioButtonGroups();
