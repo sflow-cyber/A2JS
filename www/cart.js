@@ -68,7 +68,7 @@ export function getItems() {
  * draws all items from the shopping cart and links them to
  * their config page
  */
-export function drawAllItems() {
+export async function drawAllItems() {
   let counter = 0;
   for (let item of getItems()) {
     let configUrl = "config.html?";
