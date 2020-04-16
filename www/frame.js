@@ -124,8 +124,8 @@ export function calculatePrice(printSize, frameStyle, frameWidth, matWidth) {
  */
 export async function determineArtwork() {
     const artWorkUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/" + frameRenderObj.cartItem.objectID;
-    const response;
-    const artworks;
+    var response;
+    var artworks;
     try {
         response = await fetch(artWorkUrl, {method: 'GET'});
         artworks = await response.json();
