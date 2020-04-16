@@ -1,4 +1,5 @@
 import { CartItem } from './cart-item.js';
+import * as Frame from './frame.js';
 
 /**
  * Adds a new item to the first position in the cart.
@@ -64,16 +65,64 @@ export function getItems() {
 }
 
 /**
- * Get an item with specific objectID from the cart as object
- * 
- * @returns an object from the shopping cart or null
+ * draws all items from the shopping cart and links them to
+ * their config page
  */
-export function getItem(objectID) {
-  const items = JSON.parse(localStorage["cart"]);
-  for (let item of items) {
-    if (item.objectID == objectID) {
-      return item;
+export function drawAllItems() {
+  let counter = 0;
+  for (let item of getItems()) {
+    let configUrl = "config.html?";
+    configUrl += `objectID=${item.objectID}&`;
+    configUrl += `printSize=${item.printSize}&`;
+    configUrl += `frameStyle=${item.frameStyle}&`;
+    configUrl += `frameWidth=${item.frameWidth}&`;
+    configUrl += `matColor=${item.matColor}&`;
+    configUrl += `matWidth=${item.matWidth}&`;
+
+    const queryUrl = Frame.artworkUrl + item.objectID;
+    var response;
+    var artworks;
+    try {
+      response = await fetch(queryUrl, {method: 'GET'});
+      artworks = await response.json();
+    } catch(e) {
+      continue;
     }
+    if (typeof(response) == undefined || typeof(artworks) == undefined) {
+      continue;
+    }
+    if (artworks.primaryImage.length == 0) {
+      continue;
+    }
+
+    let itemHtml = `
+      <div class="cart-item">
+        <div class="cart-preview" id="preview-container-${counter}">
+          <a href="">
+            <img class="cart-thumb" src="${artworks.primaryImage}" id="preview-${counter}" alt="">
+          </a>
+        </div>
+        <div class="museum-label">
+          <div>
+            <span class="artist">${artworks.artistDisplayName}</span>
+            <span class="title">${artworks.title}</span>,
+            <span class="date">${artworks.accessionYear}</span>
+            <br><br>
+            <span class="frame-description"></span>
+          </div>
+          <div class="cart-price">€ <span id="price-${counter}">0</span></div>
+          <button type="button" class="cart-remove"></button>
+        </div>
+      </div>`;
+    let cartDiv = document.getElementById("cart");
+    cartDiv.innerHTML = itemHtml + cartDiv.innerHTML;
+    let img = document.getElementById("preview-" + counter);
+    let div = document.getElementById("preview-container-" + counter);
+    img.style.visibility = "hidden";
+    img.onload = function() { 
+      Frame.render(img, div, item.printSize, item.frameStyle, item.frameWidth, item.matColor, item.matWidth);
+      img.style.visibility = "visible";
+    }
+    document.querySelector(`#preview-container-${counter++} > a`).href = configUrl;
   }
-  return null;
 }
