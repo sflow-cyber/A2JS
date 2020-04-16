@@ -145,7 +145,7 @@ export async function determineArtwork() {
         img.style.visibility = "visible";
     }
     img.src = artworks.primaryImage;
-    const info = "";
+    let info = "";
     if (typeof(artworks) != undefined) {
         if (typeof(artworks.artistDisplayName) != undefined) {
             info += `<b>${artworks.artistDisplayName}</b><br>`;
