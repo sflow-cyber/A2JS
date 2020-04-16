@@ -136,7 +136,11 @@ export async function determineArtwork() {
     if (typeof(artworks.primaryImage) == undefined) {
         window.location.href = "search.html";
     }
-    if (artworks.primaryImage.length == 0) {
+    try {
+        if (artworks.primaryImage.length == 0) {
+            window.location.href = "search.html";
+        }
+    } catch (e) {
         window.location.href = "search.html";
     }
     frameRenderObj.img.style.visibility = "hidden";
