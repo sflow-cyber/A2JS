@@ -267,32 +267,47 @@ export function exportNewUrl() {
  * Set controls intially according to url parameters when page is loaded 
  */
 export function determinePrefSet() {
-        if (frameRenderObj.cartItem.printSize == 'S') {    
-            document.getElementById("print-size-s").checked = true;
-        } else if (frameRenderObj.cartItem.printSize == 'L') {
-            document.getElementById("print-size-l").checked = true;
-        } else {
-            document.getElementById("print-size-m").checked = true;
+        switch (frameRenderObj.cartItem.printSize) {
+            case 'S':    
+                document.getElementById("print-size-s").checked = true;
+                break;
+            case 'L':
+                document.getElementById("print-size-l").checked = true;
+                break;
+            default:
+                document.getElementById("print-size-m").checked = true;
+                break;
         }
-        if (frameRenderObj.cartItem.frameStyle == "classic") {    
-            document.getElementById("frame-style-classic").checked = true;
-        } else if (frameRenderObj.cartItem.frameStyle == "shabby") {
-            document.getElementById("frame-style-shabby").checked = true;
-        } else if (frameRenderObj.cartItem.frameStyle == "elegant") {
-            document.getElementById("frame-style-elegant").checked = true;
-        } else {
-            document.getElementById("frame-style-natural").checked = true;
+        switch (frameRenderObj.cartItem.frameStyle) {
+            case "classic":    
+                document.getElementById("frame-style-classic").checked = true;
+                break;
+            case "shabby":
+                document.getElementById("frame-style-shabby").checked = true;
+                break;
+            case "elegant":
+                document.getElementById("frame-style-elegant").checked = true;
+                break;
+            default:
+                document.getElementById("frame-style-natural").checked = true;
+                break;
         }
-        if (frameRenderObj.cartItem.matColor == "ivory") {    
-            document.getElementById("mat-color-ivory").checked = true;
-        } else if (frameRenderObj.cartItem.matColor == "wine") {
-            document.getElementById("mat-color-wine").checked = true;
-        } else if (frameRenderObj.cartItem.matColor == "indigo") {
-            document.getElementById("mat-color-indigo").checked = true;
-        } else if (frameRenderObj.cartItem.matColor == "coal") {
-            document.getElementById("mat-color-coal").checked = true;
-        } else {
-            document.getElementById("mat-color-mint").checked = true;
+        switch (frameRenderObj.cartItem.matColor) {    
+            case "ivory":
+                document.getElementById("mat-color-ivory").checked = true;
+                break;
+            case "wine":
+                document.getElementById("mat-color-wine").checked = true;
+                break;
+            case "indigo":
+                document.getElementById("mat-color-indigo").checked = true;
+                break;
+            case "coal":
+                document.getElementById("mat-color-coal").checked = true;
+                break;
+            default:
+                document.getElementById("mat-color-mint").checked = true;
+                break;
         }
         const frameWidthTF = document.getElementById("frameWidth");
         const frameWidthSlid = document.getElementById("frameWidthR");
