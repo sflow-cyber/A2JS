@@ -325,21 +325,32 @@ export function createEventListenersForRadioButtonGroups() {
 }
 
 export function updateFROjbect(str) {
-    frameRenderObj.cartItem.objectID = getValFromStr(str, "objectID=", -1);
-    if (frameRenderObj.cartItem.objectID == -1) {
+    frameRenderObj.cartItem.objectID = parseInt(getValFromStr(str, "objectID=", -1));
+    if (frameRenderObj.cartItem.objectID == -1 || isNaN(frameRenderObj.cartItem.objectID)) {
         window.location.href = "search.html";
     }
     frameRenderObj.cartItem.printSize = getValFromStr(str, "printSize=", 'M');
+    if (frameRenderObj.cartItem.printSize != 'S' && frameRenderObj.cartItem.printSize != L) {
+        frameRenderObj.cartItem.printSize = 'M';
+    }
     frameRenderObj.cartItem.frameWidth = parseInt(getValFromStr(str, "frameWidth=", 40));
     frameRenderObj.cartItem.frameWidth = Math.min(50, frameRenderObj.cartItem.frameWidth);
     frameRenderObj.cartItem.frameWidth = Math.max(20, frameRenderObj.cartItem.frameWidth);
     if (isNaN(frameRenderObj.cartItem.frameWidth)) frameRenderObj.cartItem.frameWidth = 40;
     frameRenderObj.cartItem.frameStyle = getValFromStr(str, "frameStyle=", "natural");
+    if (frameRenderObj.cartItem.frameStyle != "classic" && frameRenderObj.cartItem.frameStyle != "shabby" 
+      && frameRenderObj.cartItem.frameStyle != "elegant") {
+        frameRenderObj.cartItem.frameStyle = "natural";
+    }
     frameRenderObj.cartItem.matWidth = parseInt(getValFromStr(str, "matWidth=", 55));
     frameRenderObj.cartItem.matWidth = Math.min(100, frameRenderObj.cartItem.matWidth);
     frameRenderObj.cartItem.matWidth = Math.max(0, frameRenderObj.cartItem.matWidth);
     if (isNaN(frameRenderObj.cartItem.matWidth)) frameRenderObj.cartItem.matWidth = 55;
     frameRenderObj.cartItem.matColor = getValFromStr(str, "matColor=", "mint");
+    if (frameRenderObj.cartItem.matColor != "ivory" && frameRenderObj.cartItem.matColor != "wine" && 
+      frameRenderObj.cartItem.matColor != "indigo" && frameRenderObj.cartItem.matColor != "coal") {
+        frameRenderObj.cartItem.matColor = "mint";
+    }
     exportNewUrl();
 }
 
