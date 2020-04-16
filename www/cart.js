@@ -69,6 +69,12 @@ export function getItems() {
  * their config page
  */
 export async function drawAllItems() {
+  // test with two items:
+  if (getItems().length < 1) {
+    add(new CartItem(11111, 'M', "elegant", 26, "wine", 67));
+    add(new CartItem(11129, 'L', "natural", 30, "indigo", 86));
+  }
+  // end of test
   let counter = 0;
   for (let item of getItems()) {
     let configUrl = "config.html?";
