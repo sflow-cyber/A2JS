@@ -124,40 +124,43 @@ export function calculatePrice(printSize, frameStyle, frameWidth, matWidth) {
  */
 export async function determineArtwork() {
     const artWorkUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/" + frameRenderObj.cartItem.objectID;
-    console.log(frameRenderObj.cartItem.objectID);
+    const response;
+    const artworks;
     try {
-        const response = await fetch(artWorkUrl, {method: 'GET'});
-        const artworks = await response.json();
-        if (artworks.primaryImage.length == 0) {
-            window.location.href = "search.html";
-        }
-        const img = document.getElementById("preview-image");
-        img.style.visibility = "hidden";
-        img.onload = function() { 
-            renderObject(); 
-            img.style.visibility = "visible";
-        }
-        img.src = artworks.primaryImage;
-        const info = "";
-        if (typeof(artworks) != undefined) {
-            if (typeof(artworks.artistDisplayName) != undefined) {
-                info += `<b>${artworks.artistDisplayName}</b><br>`;
-            }
-            if (typeof(artworks.title) != undefined) {
-                info += `<i>${artworks.title}</i>`;
-            } 
-            if (typeof(artworks.title) != undefined && typeof(artworks.accessionYear) != undefined) {
-                info += ", ";
-            }
-            if (typeof(artworks.accessionYear) != undefined) {
-                înfo += `${artworks.accessionYear}`;
-            }
-        } 
-         
-        document.getElementById("image-label").innerHTML = info;
+        response = await fetch(artWorkUrl, {method: 'GET'});
+        artworks = await response.json();
     } catch(e) {
         window.location.href = "search.html";
     }
+    if (typeof(response) == undefined || typeof(artworks) == undefined) {
+        window.location.href = "search.html";
+    }
+    if (artworks.primaryImage.length == 0) {
+        window.location.href = "search.html";
+    }
+    const img = document.getElementById("preview-image");
+    img.style.visibility = "hidden";
+    img.onload = function() { 
+        renderObject(); 
+        img.style.visibility = "visible";
+    }
+    img.src = artworks.primaryImage;
+    const info = "";
+    if (typeof(artworks) != undefined) {
+        if (typeof(artworks.artistDisplayName) != undefined) {
+            info += `<b>${artworks.artistDisplayName}</b><br>`;
+        }
+        if (typeof(artworks.title) != undefined) {
+            info += `<i>${artworks.title}</i>`;
+        } 
+        if (typeof(artworks.title) != undefined && typeof(artworks.accessionYear) != undefined) {
+            info += ", ";
+        }
+        if (typeof(artworks.accessionYear) != undefined) {
+            info += `${artworks.accessionYear}`;
+        }
+    } 
+    document.getElementById("image-label").innerHTML = info;
 }
 
 /**
