@@ -260,7 +260,8 @@ export function exportNewUrl() {
     newUrl += `frameStyle=${frameRenderObj.cartItem.frameStyle}&`;
     newUrl += `matWidth=${frameRenderObj.cartItem.matWidth}&`;
     newUrl += `matColor=${frameRenderObj.cartItem.matColor}`;
-    window.history.pushState(null, null, newUrl);
+    if (window.location.href != newUrl)
+        window.history.pushState(null, null, newUrl);
 }
 
 /**
