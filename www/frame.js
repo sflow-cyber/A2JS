@@ -94,8 +94,8 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 }
 
 export function renderObject() {
-    frameRenderObj.img.height = imgHeight;
-    frameRenderObj.img.width = imgWidth;
+    // frameRenderObj.img.height = imgHeight;
+    // frameRenderObj.img.width = imgWidth;
     render(frameRenderObj.img, 
         frameRenderObj.container, 
         frameRenderObj.cartItem.printSize, 
@@ -145,12 +145,13 @@ export async function determineArtwork() {
     }
     frameRenderObj.img.style.visibility = "hidden";
     frameRenderObj.img.onload = function() { 
+        imgHeight = frameRenderObj.img.height;
+        imgWidth = frameRenderObj.img.width;
         renderObject(); 
         frameRenderObj.img.style.visibility = "visible";
     }
     frameRenderObj.img.src = artworks.primaryImage;
-    imgHeight = frameRenderObj.img.height;
-    imgWidth = frameRenderObj.img.width;
+    
     let info = "";
     if (typeof(artworks) != undefined) {
         if (typeof(artworks.artistDisplayName) != undefined && artworks.artistDisplayName.length > 0) {
