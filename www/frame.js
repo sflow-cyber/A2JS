@@ -138,7 +138,22 @@ export async function determineArtwork() {
             img.style.visibility = "visible";
         }
         img.src = artworks.primaryImage;
-        const info = `<b>${artworks.artistDisplayName}</b><br><i>${artworks.title}</i>, ${artworks.accessionYear}`;
+        const info = "";
+        if (typeof(artworks) != undefined) {
+            if (typeof(artworks.artistDisplayName) != undefined) {
+                info += `<b>${artworks.artistDisplayName}</b><br>`;
+            }
+            if (typeof(artworks.title) != undefined) {
+                info += `<i>${artworks.title}</i>`;
+            } 
+            if (typeof(artworks.title) != undefined && typeof(artworks.accessionYear) != undefined) {
+                info += ", ";
+            }
+            if (typeof(artworks.accessionYear) != undefined) {
+                înfo += `${artworks.accessionYear}`;
+            }
+        } 
+         
         document.getElementById("image-label").innerHTML = info;
     } catch(e) {
         window.location.href = "search.html";
