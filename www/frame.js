@@ -94,8 +94,8 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 }
 
 export function renderObject() {
-    img.height = imgHeight;
-    img.width = imgWidth;
+    frameRenderObj.img.height = imgHeight;
+    frameRenderObj.img.width = imgWidth;
     render(frameRenderObj.img, 
         frameRenderObj.container, 
         frameRenderObj.cartItem.printSize, 
@@ -143,15 +143,14 @@ export async function determineArtwork() {
     if (artworks.primaryImage.length == 0) {
         window.location.href = "search.html";
     }
-    const img = document.getElementById("preview-image");
-    img.style.visibility = "hidden";
-    img.onload = function() { 
+    frameRenderObj.img.style.visibility = "hidden";
+    frameRenderObj.img.onload = function() { 
         renderObject(); 
-        img.style.visibility = "visible";
+        frameRenderObj.img.style.visibility = "visible";
     }
-    img.src = artworks.primaryImage;
-    imgHeight = img.height;
-    imgWidth = img.width;
+    frameRenderObj.img.src = artworks.primaryImage;
+    imgHeight = frameRenderObj.img.height;
+    imgWidth = frameRenderObj.img.width;
     let info = "";
     if (typeof(artworks) != undefined) {
         if (typeof(artworks.artistDisplayName) != undefined && artworks.artistDisplayName.length > 0) {
