@@ -432,6 +432,9 @@ export function onPageLoad() {
     connectSliderTextfield();
     createEventListenersForRadioButtonGroups();
     const parts = window.location.href.split("?");
+    if (parts.length == 1) {
+        window.location.href = "search.html";
+    }
     updateFROjbect(parts[1]);
     if (parts.length > 1) {
         determinePrefSet();
