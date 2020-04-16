@@ -94,8 +94,8 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 }
 
 export function renderObject() {
-    // frameRenderObj.img.height = imgHeight;
-    // frameRenderObj.img.width = imgWidth;
+    frameRenderObj.img.height = imgHeight;
+    frameRenderObj.img.width = imgWidth;
     render(frameRenderObj.img, 
         frameRenderObj.container, 
         frameRenderObj.cartItem.printSize, 
