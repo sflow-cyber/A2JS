@@ -8,14 +8,7 @@ export var frameRenderObj = {
     imgWidth:0,
     img:document.getElementById("preview-image"), 
     container:document.getElementById("preview-container"),
-    cartItem: { 
-        objectID: null,
-        printSize:'M', 
-        frameStyle:"natural", 
-        frameWidth:40, 
-        matColor:"mint", 
-        matWidth:55
-    }
+    cartItem: new cartItem(null, 'M', "natural", 40, "mint", 55) 
 };
 
 /**
@@ -155,13 +148,15 @@ export async function determineArtwork() {
     
     let info = "";
     if (typeof(artworks) != undefined) {
-        if (typeof(artworks.artistDisplayName) != undefined && artworks.artistDisplayName.length > 0) {
+        if (typeof(artworks.artistDisplayName) != undefined && 
+          artworks.artistDisplayName.length > 0) {
             info += `<b>${artworks.artistDisplayName}</b><br>`;
         }
         if (typeof(artworks.title) != undefined && artworks.title.length > 0) {
             info += `<i>${artworks.title}</i>`;
         } 
-        if (typeof(artworks.title) != undefined && artworks.title.length > 0 && typeof(artworks.accessionYear) != undefined && artworks.accessionYear.length > 0) {
+        if (typeof(artworks.title) != undefined && artworks.title.length > 0 && 
+          typeof(artworks.accessionYear) != undefined && artworks.accessionYear.length > 0) {
             info += ", ";
         }
         if (typeof(artworks.accessionYear && artworks.accessionYear.length > 0) != undefined) {
