@@ -1,10 +1,11 @@
 import { CartItem } from './cart-item.js';
 import * as Cart from './cart.js';
 
-export var imgHeight;
-export var imgWidth;
+export const artworkUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/";
 
 export var frameRenderObj = {
+    imgHeight:0,
+    imgWidth:0,
     img:document.getElementById("preview-image"), 
     container:document.getElementById("preview-container"),
     cartItem: { 
@@ -94,8 +95,8 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 }
 
 export function renderObject() {
-    frameRenderObj.img.height = imgHeight;  // when scaling the frame and mat widths a lot, img size is slowly but steadily reduced due to integer
-    frameRenderObj.img.width = imgWidth;    // truncating - setting h and w back to original values prevents unintended scaling during the render process
+    frameRenderObj.img.height = frameRenderObj.imgHeight;  // when scaling the frame and mat widths a lot, img size is slowly but steadily reduced due to integer
+    frameRenderObj.img.width = frameRenderObj.imgWidth;    // truncating - setting h and w back to original values prevents unintended scaling during the render process
     render(frameRenderObj.img, 
         frameRenderObj.container, 
         frameRenderObj.cartItem.printSize, 
@@ -128,11 +129,11 @@ export function calculatePrice(printSize, frameStyle, frameWidth, matWidth) {
  *
  */
 export async function determineArtwork() {
-    const artWorkUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/" + frameRenderObj.cartItem.objectID;
+    const queryUrl = artworkUrl + frameRenderObj.cartItem.objectID;
     var response;
     var artworks;
     try {
-        response = await fetch(artWorkUrl, {method: 'GET'});
+        response = await fetch(queryUrl, {method: 'GET'});
         artworks = await response.json();
     } catch(e) {
         window.location.href = "search.html";
@@ -145,8 +146,8 @@ export async function determineArtwork() {
     }
     frameRenderObj.img.style.visibility = "hidden";
     frameRenderObj.img.onload = function() { 
-        imgHeight = frameRenderObj.img.height;
-        imgWidth = frameRenderObj.img.width;
+        frameRenderObj.imgHeight = frameRenderObj.img.height;
+        frameRenderObj.imgWidth = frameRenderObj.img.width;
         renderObject(); 
         frameRenderObj.img.style.visibility = "visible";
     }
