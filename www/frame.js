@@ -1,5 +1,4 @@
 import { CartItem } from './cart-item.js';
-import * as Cart from './cart.js';
 
 export const artworkUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/";
 
