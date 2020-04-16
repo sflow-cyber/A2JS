@@ -230,7 +230,7 @@ export function connectSliderTextfield() {
             if (this.value.length == 0) {
                 this.value = frameWidthSlid.value;
             }
-            frameRenderObj.frameWidth = this.value;
+            frameRenderObj.cartItem.frameWidth = this.value * 10;
             renderObject();
             exportNewUrl()
         }
@@ -243,7 +243,7 @@ export function connectSliderTextfield() {
             if (this.value.length == 0) {
                 this.value = matSlid.value;
             }
-            frameRenderObj.cartItem.matWidth = this.value;
+            frameRenderObj.cartItem.matWidth = this.value = 10;
             renderObject();
             exportNewUrl()
         }
