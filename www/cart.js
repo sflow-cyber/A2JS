@@ -84,11 +84,11 @@ export async function drawAllItems() {
     let configUrl = "config.html?";
     configUrl += `objectID=${item.objectID}&`;
     configUrl += `printSize=${item.printSize}&`;
-    configUrl += `frameStyle=${item.frameStyle}&`;
     configUrl += `frameWidth=${item.frameWidth}&`;
-    configUrl += `matColor=${item.matColor}&`;
+    configUrl += `frameStyle=${item.frameStyle}&`;
     configUrl += `matWidth=${item.matWidth}&`;
-
+    configUrl += `matColor=${item.matColor}&`;
+    
     const queryUrl = Frame.artworkUrl + item.objectID;
     var response;
     var artworks;
