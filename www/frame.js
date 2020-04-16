@@ -96,7 +96,7 @@ export function render(img, container, printSize, frameStyle, frameWidth, matCol
 
 export function renderObject() {
     frameRenderObj.img.height = frameRenderObj.imgHeight;  // when scaling the frame and mat widths a lot, img size is slowly but steadily reduced due to integer
-    frameRenderObj.img.width = frameRenderObj.imgWidth;    // truncating - setting h and w back to original values prevents unintended scaling during the render process
+    frameRenderObj.img.width = frameRenderObj.imgWidth;    // truncating - setting h and w back to their original values prevents unintended scaling during the render process
     render(frameRenderObj.img, 
         frameRenderObj.container, 
         frameRenderObj.cartItem.printSize, 
