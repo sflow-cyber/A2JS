@@ -72,7 +72,9 @@ export function getItems() {
  */
 export async function drawAllItems() {
   // test with two items:
-  if (cnt++ < 1) {
+  try {
+    getItems();   // this is not allowed
+  } catch(e) {
     add(new CartItem(11111, 'M', "elegant", 26, "wine", 67));
     add(new CartItem(11129, 'L', "natural", 30, "indigo", 86));
   }
