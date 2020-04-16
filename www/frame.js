@@ -8,7 +8,7 @@ export var frameRenderObj = {
     imgWidth:0,
     img:document.getElementById("preview-image"), 
     container:document.getElementById("preview-container"),
-    cartItem: new cartItem(null, 'M', "natural", 40, "mint", 55) 
+    cartItem: new CartItem(null, 'M', "natural", 40, "mint", 55) 
 };
 
 /**
