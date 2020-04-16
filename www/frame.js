@@ -187,14 +187,14 @@ export function connectSliderTextfield() {
         frameWidthTF.value = this.value;
         frameRenderObj.cartItem.frameWidth = this.value * 10;
         renderObject();
-        exportNewUrl()
+        exportNewUrl();
     });
 
     matSlid.addEventListener('input', function() {
         matTF.value = this.value;
         frameRenderObj.cartItem.matWidth = this.value * 10;
         renderObject();
-        exportNewUrl()
+        exportNewUrl();
     });
 
     frameWidthTF.addEventListener('input', function() {
@@ -207,7 +207,7 @@ export function connectSliderTextfield() {
         this.value = tfVal;
         frameRenderObj.cartItem.frameWidth = tfVal * 10;
         renderObject();
-        exportNewUrl()
+        exportNewUrl();
     });
 
     matTF.addEventListener('input', function() {
@@ -220,7 +220,7 @@ export function connectSliderTextfield() {
         this.value = tfVal;
         frameRenderObj.cartItem.matWidth = tfVal * 10;
         renderObject();
-        exportNewUrl()
+        exportNewUrl();
     });
 
     frameWidthTF.addEventListener('keypress', function(e) {
@@ -232,7 +232,7 @@ export function connectSliderTextfield() {
             }
             frameRenderObj.cartItem.frameWidth = this.value * 10;
             renderObject();
-            exportNewUrl()
+            exportNewUrl();
         }
     }); 
 
@@ -245,7 +245,7 @@ export function connectSliderTextfield() {
             }
             frameRenderObj.cartItem.matWidth = this.value * 10;
             renderObject();
-            exportNewUrl()
+            exportNewUrl();
         }
     });
 }
@@ -343,7 +343,7 @@ export function createEventListenersForRadioButtonGroups() {
                 frameRenderObj.cartItem.matColor = "mint";
             }
             renderObject();
-            exportNewUrl()
+            exportNewUrl();
         }, 0);       
 }
 
