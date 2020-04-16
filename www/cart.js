@@ -71,7 +71,7 @@ export function getItems() {
  * their config page
  */
 export async function drawAllItems() {
-  // test with two items:
+  // test with two items: // ToDo: DELETE AFTER TESTING!!!!!!
   try {
     getItems();   // this is not allowed
   } catch(e) {
@@ -87,7 +87,7 @@ export async function drawAllItems() {
     configUrl += `frameWidth=${item.frameWidth}&`;
     configUrl += `frameStyle=${item.frameStyle}&`;
     configUrl += `matWidth=${item.matWidth}&`;
-    configUrl += `matColor=${item.matColor}&`;
+    configUrl += `matColor=${item.matColor}`;
     
     const queryUrl = Frame.artworkUrl + item.objectID;
     var response;
