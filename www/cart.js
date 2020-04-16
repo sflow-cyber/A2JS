@@ -1,6 +1,8 @@
 import { CartItem } from './cart-item.js';
 import * as Frame from './frame.js';
 
+export var cnt = 0;
+
 /**
  * Adds a new item to the first position in the cart.
  *
@@ -70,7 +72,7 @@ export function getItems() {
  */
 export async function drawAllItems() {
   // test with two items:
-  if (getItems().length < 1) {
+  if (cnt++ < 1) {
     add(new CartItem(11111, 'M', "elegant", 26, "wine", 67));
     add(new CartItem(11129, 'L', "natural", 30, "indigo", 86));
   }
